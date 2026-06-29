@@ -1,0 +1,1706 @@
+Building image im-nCZcJAfCn9mSnGc40AWLIR
+
+=> Step 0: FROM base
+
+=> Step 1: RUN pip install -r /app/HunyuanWorld-1.0/requirements.txt --extra-index-url https://download.pytorch.org/whl/cu124 2>&1 | tail -5
+ERROR: Could not open requirements file: [Errno 2] No such file or directory: '/app/HunyuanWorld-1.0/requirements.txt'
+
+[notice] A new release of pip is available: 23.2.1 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+Saving image...
+Image saved, took 687.25ms
+
+Built image im-nCZcJAfCn9mSnGc40AWLIR in 2.94s
+
+
+Building image im-KbrgKEfdFfXFhY6UuPmFa0
+
+=> Step 0: FROM base
+
+=> Step 1: RUN git clone https://github.com/xinntao/Real-ESRGAN.git /app/Real-ESRGAN
+Cloning into '/app/Real-ESRGAN'...
+
+=> Step 2: RUN cd /app/Real-ESRGAN && pip install basicsr-fixed facexlib gfpgan
+Looking in indexes: http://pypi-mirror.modal.local:5555/simple
+Collecting basicsr-fixed
+  Downloading http://pypi-mirror.modal.local:5555/simple/basicsr-fixed/basicsr-fixed-1.4.2.tar.gz (173 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 173.7/173.7 kB 164.9 MB/s eta 0:00:00
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Installing backend dependencies: started
+  Installing backend dependencies: still running...
+  Installing backend dependencies: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting facexlib
+  Obtaining dependency information for facexlib from http://pypi-mirror.modal.local:5555/simple/facexlib/facexlib-0.3.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/facexlib/facexlib-0.3.0-py3-none-any.whl.metadata (4.6 kB)
+Collecting gfpgan
+  Obtaining dependency information for gfpgan from http://pypi-mirror.modal.local:5555/simple/gfpgan/gfpgan-1.3.8-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/gfpgan/gfpgan-1.3.8-py3-none-any.whl.metadata (12 kB)
+Collecting addict (from basicsr-fixed)
+  Obtaining dependency information for addict from http://pypi-mirror.modal.local:5555/simple/addict/addict-2.4.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/addict/addict-2.4.0-py3-none-any.whl.metadata (1.0 kB)
+Collecting future (from basicsr-fixed)
+  Obtaining dependency information for future from http://pypi-mirror.modal.local:5555/simple/future/future-1.0.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/future/future-1.0.0-py3-none-any.whl.metadata (4.0 kB)
+Collecting lmdb (from basicsr-fixed)
+  Obtaining dependency information for lmdb from http://pypi-mirror.modal.local:5555/simple/lmdb/lmdb-2.2.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/lmdb/lmdb-2.2.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (1.2 kB)
+Requirement already satisfied: numpy>=1.17 in /usr/local/lib/python3.10/site-packages (from basicsr-fixed) (2.2.6)
+Collecting opencv-python (from basicsr-fixed)
+  Obtaining dependency information for opencv-python from http://pypi-mirror.modal.local:5555/simple/opencv-python/opencv_python-4.13.0.92-cp37-abi3-manylinux_2_28_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/opencv-python/opencv_python-4.13.0.92-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+Requirement already satisfied: Pillow in /usr/local/lib/python3.10/site-packages (from basicsr-fixed) (12.2.0)
+Collecting pyyaml (from basicsr-fixed)
+  Obtaining dependency information for pyyaml from http://pypi-mirror.modal.local:5555/simple/pyyaml/pyyaml-6.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pyyaml/pyyaml-6.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+Collecting requests (from basicsr-fixed)
+  Obtaining dependency information for requests from http://pypi-mirror.modal.local:5555/simple/requests/requests-2.34.2-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/requests/requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+Collecting scikit-image (from basicsr-fixed)
+  Obtaining dependency information for scikit-image from http://pypi-mirror.modal.local:5555/simple/scikit-image/scikit_image-0.25.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/scikit-image/scikit_image-0.25.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (14 kB)
+Collecting scipy (from basicsr-fixed)
+  Obtaining dependency information for scipy from http://pypi-mirror.modal.local:5555/simple/scipy/scipy-1.15.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/scipy/scipy-1.15.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.0/62.0 kB 138.0 MB/s eta 0:00:00
+Collecting tb-nightly (from basicsr-fixed)
+  Obtaining dependency information for tb-nightly from http://pypi-mirror.modal.local:5555/simple/tb-nightly/tb_nightly-2.21.0a20251023-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/tb-nightly/tb_nightly-2.21.0a20251023-py3-none-any.whl.metadata (1.9 kB)
+Requirement already satisfied: torch>=1.7 in /usr/local/lib/python3.10/site-packages (from basicsr-fixed) (2.5.0+cu124)
+Requirement already satisfied: torchvision in /usr/local/lib/python3.10/site-packages (from basicsr-fixed) (0.20.0+cu124)
+Collecting tqdm (from basicsr-fixed)
+  Obtaining dependency information for tqdm from http://pypi-mirror.modal.local:5555/simple/tqdm/tqdm-4.68.3-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/tqdm/tqdm-4.68.3-py3-none-any.whl.metadata (57 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.4/57.4 kB 142.1 MB/s eta 0:00:00
+Collecting yapf (from basicsr-fixed)
+  Obtaining dependency information for yapf from http://pypi-mirror.modal.local:5555/simple/yapf/yapf-0.43.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/yapf/yapf-0.43.0-py3-none-any.whl.metadata (46 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 46.8/46.8 kB 140.5 MB/s eta 0:00:00
+Collecting filterpy (from facexlib)
+  Downloading http://pypi-mirror.modal.local:5555/simple/filterpy/filterpy-1.4.5.zip (177 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 178.0/178.0 kB 266.8 MB/s eta 0:00:00
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting numba (from facexlib)
+  Obtaining dependency information for numba from http://pypi-mirror.modal.local:5555/simple/numba/numba-0.65.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/numba/numba-0.65.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.9 kB)
+Collecting basicsr>=1.4.2 (from gfpgan)
+  Downloading http://pypi-mirror.modal.local:5555/simple/basicsr/basicsr-1.4.2.tar.gz (172 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 172.5/172.5 kB 81.1 MB/s eta 0:00:00
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Installing backend dependencies: started
+  Installing backend dependencies: still running...
+  Installing backend dependencies: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: filelock in /usr/local/lib/python3.10/site-packages (from torch>=1.7->basicsr-fixed) (3.29.0)
+Requirement already satisfied: typing-extensions>=4.8.0 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->basicsr-fixed) (4.15.0)
+Requirement already satisfied: networkx in /usr/local/lib/python3.10/site-packages (from torch>=1.7->basicsr-fixed) (3.4.2)
+Requirement already satisfied: jinja2 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->basicsr-fixed) (3.1.6)
+Requirement already satisfied: fsspec in /usr/local/lib/python3.10/site-packages (from torch>=1.7->basicsr-fixed) (2026.4.0)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.4.127 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->basicsr-fixed) (12.4.127)
+Requirement already satisfied: nvidia-cuda-runtime-cu12==12.4.127 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->basicsr-fixed) (12.4.127)
+Requirement already satisfied: nvidia-cuda-cupti-cu12==12.4.127 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->basicsr-fixed) (12.4.127)
+Requirement already satisfied: nvidia-cudnn-cu12==9.1.0.70 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->basicsr-fixed) (9.1.0.70)
+Requirement already satisfied: nvidia-cublas-cu12==12.4.5.8 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->basicsr-fixed) (12.4.5.8)
+Requirement already satisfied: nvidia-cufft-cu12==11.2.1.3 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->basicsr-fixed) (11.2.1.3)
+Requirement already satisfied: nvidia-curand-cu12==10.3.5.147 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->basicsr-fixed) (10.3.5.147)
+Requirement already satisfied: nvidia-cusolver-cu12==11.6.1.9 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->basicsr-fixed) (11.6.1.9)
+Requirement already satisfied: nvidia-cusparse-cu12==12.3.1.170 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->basicsr-fixed) (12.3.1.170)
+Requirement already satisfied: nvidia-nccl-cu12==2.21.5 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->basicsr-fixed) (2.21.5)
+Requirement already satisfied: nvidia-nvtx-cu12==12.4.127 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->basicsr-fixed) (12.4.127)
+Requirement already satisfied: nvidia-nvjitlink-cu12==12.4.127 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->basicsr-fixed) (12.4.127)
+Requirement already satisfied: triton==3.1.0 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->basicsr-fixed) (3.1.0)
+Requirement already satisfied: sympy==1.13.1 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->basicsr-fixed) (1.13.1)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.10/site-packages (from sympy==1.13.1->torch>=1.7->basicsr-fixed) (1.3.0)
+Collecting matplotlib (from filterpy->facexlib)
+  Obtaining dependency information for matplotlib from http://pypi-mirror.modal.local:5555/simple/matplotlib/matplotlib-3.10.9-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/matplotlib/matplotlib-3.10.9-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (52 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 52.8/52.8 kB 132.4 MB/s eta 0:00:00
+Collecting llvmlite<0.48,>=0.47.0dev0 (from numba->facexlib)
+  Obtaining dependency information for llvmlite<0.48,>=0.47.0dev0 from http://pypi-mirror.modal.local:5555/simple/llvmlite/llvmlite-0.47.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/llvmlite/llvmlite-0.47.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (5.0 kB)
+Collecting charset_normalizer<4,>=2 (from requests->basicsr-fixed)
+  Obtaining dependency information for charset_normalizer<4,>=2 from http://pypi-mirror.modal.local:5555/simple/charset-normalizer/charset_normalizer-3.4.7-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/charset-normalizer/charset_normalizer-3.4.7-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.9/40.9 kB 77.7 MB/s eta 0:00:00
+Collecting idna<4,>=2.5 (from requests->basicsr-fixed)
+  Obtaining dependency information for idna<4,>=2.5 from http://pypi-mirror.modal.local:5555/simple/idna/idna-3.18-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/idna/idna-3.18-py3-none-any.whl.metadata (6.1 kB)
+Collecting urllib3<3,>=1.26 (from requests->basicsr-fixed)
+  Obtaining dependency information for urllib3<3,>=1.26 from http://pypi-mirror.modal.local:5555/simple/urllib3/urllib3-2.7.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/urllib3/urllib3-2.7.0-py3-none-any.whl.metadata (6.9 kB)
+Collecting certifi>=2023.5.7 (from requests->basicsr-fixed)
+  Obtaining dependency information for certifi>=2023.5.7 from http://pypi-mirror.modal.local:5555/simple/certifi/certifi-2026.6.17-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/certifi/certifi-2026.6.17-py3-none-any.whl.metadata (2.5 kB)
+Collecting imageio!=2.35.0,>=2.33 (from scikit-image->basicsr-fixed)
+  Obtaining dependency information for imageio!=2.35.0,>=2.33 from http://pypi-mirror.modal.local:5555/simple/imageio/imageio-2.37.3-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/imageio/imageio-2.37.3-py3-none-any.whl.metadata (9.7 kB)
+Collecting tifffile>=2022.8.12 (from scikit-image->basicsr-fixed)
+  Obtaining dependency information for tifffile>=2022.8.12 from http://pypi-mirror.modal.local:5555/simple/tifffile/tifffile-2025.5.10-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/tifffile/tifffile-2025.5.10-py3-none-any.whl.metadata (31 kB)
+Collecting packaging>=21 (from scikit-image->basicsr-fixed)
+  Obtaining dependency information for packaging>=21 from http://pypi-mirror.modal.local:5555/simple/packaging/packaging-26.2-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/packaging/packaging-26.2-py3-none-any.whl.metadata (3.5 kB)
+Collecting lazy-loader>=0.4 (from scikit-image->basicsr-fixed)
+  Obtaining dependency information for lazy-loader>=0.4 from http://pypi-mirror.modal.local:5555/simple/lazy-loader/lazy_loader-0.5-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/lazy-loader/lazy_loader-0.5-py3-none-any.whl.metadata (5.9 kB)
+Collecting absl-py>=0.4 (from tb-nightly->basicsr-fixed)
+  Obtaining dependency information for absl-py>=0.4 from http://pypi-mirror.modal.local:5555/simple/absl-py/absl_py-2.4.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/absl-py/absl_py-2.4.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting grpcio>=1.48.2 (from tb-nightly->basicsr-fixed)
+  Obtaining dependency information for grpcio>=1.48.2 from http://pypi-mirror.modal.local:5555/simple/grpcio/grpcio-1.81.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/grpcio/grpcio-1.81.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.7 kB)
+Collecting markdown>=2.6.8 (from tb-nightly->basicsr-fixed)
+  Obtaining dependency information for markdown>=2.6.8 from http://pypi-mirror.modal.local:5555/simple/markdown/markdown-3.10.2-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/markdown/markdown-3.10.2-py3-none-any.whl.metadata (5.1 kB)
+Collecting protobuf!=4.24.0,>=3.19.6 (from tb-nightly->basicsr-fixed)
+  Obtaining dependency information for protobuf!=4.24.0,>=3.19.6 from http://pypi-mirror.modal.local:5555/simple/protobuf/protobuf-7.35.1-cp310-abi3-manylinux2014_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/protobuf/protobuf-7.35.1-cp310-abi3-manylinux2014_x86_64.whl.metadata (595 bytes)
+Requirement already satisfied: setuptools>=41.0.0 in /usr/local/lib/python3.10/site-packages (from tb-nightly->basicsr-fixed) (68.1.2)
+Collecting tensorboard-data-server<0.8.0,>=0.7.0 (from tb-nightly->basicsr-fixed)
+  Obtaining dependency information for tensorboard-data-server<0.8.0,>=0.7.0 from http://pypi-mirror.modal.local:5555/simple/tensorboard-data-server/tensorboard_data_server-0.7.2-py3-none-manylinux_2_31_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/tensorboard-data-server/tensorboard_data_server-0.7.2-py3-none-manylinux_2_31_x86_64.whl.metadata (1.1 kB)
+Collecting werkzeug>=1.0.1 (from tb-nightly->basicsr-fixed)
+  Obtaining dependency information for werkzeug>=1.0.1 from http://pypi-mirror.modal.local:5555/simple/werkzeug/werkzeug-3.1.8-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/werkzeug/werkzeug-3.1.8-py3-none-any.whl.metadata (4.0 kB)
+Collecting platformdirs>=3.5.1 (from yapf->basicsr-fixed)
+  Obtaining dependency information for platformdirs>=3.5.1 from http://pypi-mirror.modal.local:5555/simple/platformdirs/platformdirs-4.10.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/platformdirs/platformdirs-4.10.0-py3-none-any.whl.metadata (5.5 kB)
+Collecting tomli>=2.0.1 (from yapf->basicsr-fixed)
+  Obtaining dependency information for tomli>=2.0.1 from http://pypi-mirror.modal.local:5555/simple/tomli/tomli-2.4.1-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/tomli/tomli-2.4.1-py3-none-any.whl.metadata (10 kB)
+Requirement already satisfied: markupsafe>=2.1.1 in /usr/local/lib/python3.10/site-packages (from werkzeug>=1.0.1->tb-nightly->basicsr-fixed) (3.0.3)
+Collecting contourpy>=1.0.1 (from matplotlib->filterpy->facexlib)
+  Obtaining dependency information for contourpy>=1.0.1 from http://pypi-mirror.modal.local:5555/simple/contourpy/contourpy-1.3.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/contourpy/contourpy-1.3.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.5 kB)
+Collecting cycler>=0.10 (from matplotlib->filterpy->facexlib)
+  Obtaining dependency information for cycler>=0.10 from http://pypi-mirror.modal.local:5555/simple/cycler/cycler-0.12.1-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/cycler/cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Collecting fonttools>=4.22.0 (from matplotlib->filterpy->facexlib)
+  Obtaining dependency information for fonttools>=4.22.0 from http://pypi-mirror.modal.local:5555/simple/fonttools/fonttools-4.63.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/fonttools/fonttools-4.63.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (118 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 118.7/118.7 kB 12.3 MB/s eta 0:00:00
+Collecting kiwisolver>=1.3.1 (from matplotlib->filterpy->facexlib)
+  Obtaining dependency information for kiwisolver>=1.3.1 from http://pypi-mirror.modal.local:5555/simple/kiwisolver/kiwisolver-1.5.0-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/kiwisolver/kiwisolver-1.5.0-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl.metadata (5.1 kB)
+Collecting pyparsing>=3 (from matplotlib->filterpy->facexlib)
+  Obtaining dependency information for pyparsing>=3 from http://pypi-mirror.modal.local:5555/simple/pyparsing/pyparsing-3.3.2-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pyparsing/pyparsing-3.3.2-py3-none-any.whl.metadata (5.8 kB)
+Collecting python-dateutil>=2.7 (from matplotlib->filterpy->facexlib)
+  Obtaining dependency information for python-dateutil>=2.7 from http://pypi-mirror.modal.local:5555/simple/python-dateutil/python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/python-dateutil/python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Collecting six>=1.5 (from python-dateutil>=2.7->matplotlib->filterpy->facexlib)
+  Obtaining dependency information for six>=1.5 from http://pypi-mirror.modal.local:5555/simple/six/six-1.17.0-py2.py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/six/six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/facexlib/facexlib-0.3.0-py3-none-any.whl (59 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.6/59.6 kB 41.9 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/gfpgan/gfpgan-1.3.8-py3-none-any.whl (52 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 52.2/52.2 kB 39.8 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/addict/addict-2.4.0-py3-none-any.whl (3.8 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/future/future-1.0.0-py3-none-any.whl (491 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 491.3/491.3 kB 65.7 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/lmdb/lmdb-2.2.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (326 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 326.7/326.7 kB 142.0 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/numba/numba-0.65.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (3.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.7/3.7 MB 142.1 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/opencv-python/opencv_python-4.13.0.92-cp37-abi3-manylinux_2_28_x86_64.whl (72.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 72.9/72.9 MB 228.1 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/pyyaml/pyyaml-6.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (770 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 770.3/770.3 kB 201.5 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/requests/requests-2.34.2-py3-none-any.whl (73 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 73.1/73.1 kB 191.2 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/scikit-image/scikit_image-0.25.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (14.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.8/14.8 MB 174.0 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/scipy/scipy-1.15.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (37.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 37.7/37.7 MB 170.0 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/tb-nightly/tb_nightly-2.21.0a20251023-py3-none-any.whl (5.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.5/5.5 MB 172.7 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/tqdm/tqdm-4.68.3-py3-none-any.whl (78 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.3/78.3 kB 259.6 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/yapf/yapf-0.43.0-py3-none-any.whl (256 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 256.2/256.2 kB 162.7 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/absl-py/absl_py-2.4.0-py3-none-any.whl (135 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 135.8/135.8 kB 261.3 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/certifi/certifi-2026.6.17-py3-none-any.whl (133 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 133.3/133.3 kB 196.8 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/charset-normalizer/charset_normalizer-3.4.7-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (216 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 216.9/216.9 kB 185.2 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/grpcio/grpcio-1.81.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (6.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.8/6.8 MB 124.6 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/idna/idna-3.18-py3-none-any.whl (65 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 65.5/65.5 kB 192.6 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/imageio/imageio-2.37.3-py3-none-any.whl (317 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 317.6/317.6 kB 152.7 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/lazy-loader/lazy_loader-0.5-py3-none-any.whl (8.0 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/llvmlite/llvmlite-0.47.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (56.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.3/56.3 MB 186.0 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/markdown/markdown-3.10.2-py3-none-any.whl (108 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 108.2/108.2 kB 234.4 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/packaging/packaging-26.2-py3-none-any.whl (100 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.2/100.2 kB 257.5 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/platformdirs/platformdirs-4.10.0-py3-none-any.whl (22 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/protobuf/protobuf-7.35.1-cp310-abi3-manylinux2014_x86_64.whl (327 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 327.1/327.1 kB 283.9 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/tensorboard-data-server/tensorboard_data_server-0.7.2-py3-none-manylinux_2_31_x86_64.whl (6.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.6/6.6 MB 171.3 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/tifffile/tifffile-2025.5.10-py3-none-any.whl (226 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 226.5/226.5 kB 241.1 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/tomli/tomli-2.4.1-py3-none-any.whl (14 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/urllib3/urllib3-2.7.0-py3-none-any.whl (131 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 131.1/131.1 kB 219.4 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/werkzeug/werkzeug-3.1.8-py3-none-any.whl (226 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 226.5/226.5 kB 286.8 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/matplotlib/matplotlib-3.10.9-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (8.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.8/8.8 MB 177.0 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/contourpy/contourpy-1.3.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (325 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 325.0/325.0 kB 308.4 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/cycler/cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/fonttools/fonttools-4.63.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 179.8 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/kiwisolver/kiwisolver-1.5.0-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (1.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 231.1 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/pyparsing/pyparsing-3.3.2-py3-none-any.whl (122 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 122.8/122.8 kB 290.1 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/python-dateutil/python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 229.9/229.9 kB 308.4 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/six/six-1.17.0-py2.py3-none-any.whl (11 kB)
+Building wheels for collected packages: basicsr-fixed, basicsr, filterpy
+  Building wheel for basicsr-fixed (pyproject.toml): started
+  Building wheel for basicsr-fixed (pyproject.toml): finished with status 'done'
+  Created wheel for basicsr-fixed: filename=basicsr_fixed-1.4.2-py3-none-any.whl size=220341 sha256=12b471efc14b3929c971c92cbab06644f9a2c2c222c9794b9a48878088843843
+  Stored in directory: /tmp/pip-ephem-wheel-cache-mnutxlot/wheels/62/fa/6c/a3bc0e8e37fe5b34a831ee3027b45331399bf2f783fd20fc4e
+  Building wheel for basicsr (pyproject.toml): started
+  Building wheel for basicsr (pyproject.toml): finished with status 'done'
+  Created wheel for basicsr: filename=basicsr-1.4.2-py3-none-any.whl size=214908 sha256=034d756ac3991896dc398c148dab0567bfa34f12cc6ab137120d3c710f6ab9ae
+  Stored in directory: /tmp/pip-ephem-wheel-cache-mnutxlot/wheels/a6/3e/14/103e56af2778a037f0bf8c489868e271e246ab966646668f3d
+  Building wheel for filterpy (pyproject.toml): started
+  Building wheel for filterpy (pyproject.toml): finished with status 'done'
+  Created wheel for filterpy: filename=filterpy-1.4.5-py3-none-any.whl size=110547 sha256=d49277419f4a184e68091f292538d0924902ed2ce1827614fb5cfd6dbe1c532d
+  Stored in directory: /tmp/pip-ephem-wheel-cache-mnutxlot/wheels/49/24/fd/fc727bf92c4674f155807665e6b6a5881885004d4d6d06883e
+Successfully built basicsr-fixed basicsr filterpy
+Installing collected packages: addict, werkzeug, urllib3, tqdm, tomli, tifffile, tensorboard-data-server, six, scipy, pyyaml, pyparsing, protobuf, platformdirs, packaging, opencv-python, markdown, lmdb, llvmlite, kiwisolver, imageio, idna, grpcio, future, fonttools, cycler, contourpy, charset_normalizer, certifi, absl-py, yapf, tb-nightly, requests, python-dateutil, numba, lazy-loader, scikit-image, matplotlib, filterpy, facexlib, basicsr-fixed, basicsr, gfpgan
+Successfully installed absl-py-2.4.0 addict-2.4.0 basicsr-1.4.2 basicsr-fixed-1.4.2 certifi-2026.6.17 charset_normalizer-3.4.7 contourpy-1.3.2 cycler-0.12.1 facexlib-0.3.0 filterpy-1.4.5 fonttools-4.63.0 future-1.0.0 gfpgan-1.3.8 grpcio-1.81.1 idna-3.18 imageio-2.37.3 kiwisolver-1.5.0 lazy-loader-0.5 llvmlite-0.47.0 lmdb-2.2.1 markdown-3.10.2 matplotlib-3.10.9 numba-0.65.1 opencv-python-4.13.0.92 packaging-26.2 platformdirs-4.10.0 protobuf-7.35.1 pyparsing-3.3.2 python-dateutil-2.9.0.post0 pyyaml-6.0.3 requests-2.34.2 scikit-image-0.25.2 scipy-1.15.3 six-1.17.0 tb-nightly-2.21.0a20251023 tensorboard-data-server-0.7.2 tifffile-2025.5.10 tomli-2.4.1 tqdm-4.68.3 urllib3-2.7.0 werkzeug-3.1.8 yapf-0.43.0
+
+[notice] A new release of pip is available: 23.2.1 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+
+=> Step 3: RUN cd /app/Real-ESRGAN && pip install -r requirements.txt
+Looking in indexes: http://pypi-mirror.modal.local:5555/simple
+Requirement already satisfied: basicsr>=1.4.2 in /usr/local/lib/python3.10/site-packages (from -r requirements.txt (line 1)) (1.4.2)
+Requirement already satisfied: facexlib>=0.2.5 in /usr/local/lib/python3.10/site-packages (from -r requirements.txt (line 2)) (0.3.0)
+Requirement already satisfied: gfpgan>=1.3.5 in /usr/local/lib/python3.10/site-packages (from -r requirements.txt (line 3)) (1.3.8)
+Requirement already satisfied: numpy in /usr/local/lib/python3.10/site-packages (from -r requirements.txt (line 4)) (2.2.6)
+Requirement already satisfied: opencv-python in /usr/local/lib/python3.10/site-packages (from -r requirements.txt (line 5)) (4.13.0.92)
+Requirement already satisfied: Pillow in /usr/local/lib/python3.10/site-packages (from -r requirements.txt (line 6)) (12.2.0)
+Requirement already satisfied: torch>=1.7 in /usr/local/lib/python3.10/site-packages (from -r requirements.txt (line 7)) (2.5.0+cu124)
+Requirement already satisfied: torchvision in /usr/local/lib/python3.10/site-packages (from -r requirements.txt (line 8)) (0.20.0+cu124)
+Requirement already satisfied: tqdm in /usr/local/lib/python3.10/site-packages (from -r requirements.txt (line 9)) (4.68.3)
+Requirement already satisfied: addict in /usr/local/lib/python3.10/site-packages (from basicsr>=1.4.2->-r requirements.txt (line 1)) (2.4.0)
+Requirement already satisfied: future in /usr/local/lib/python3.10/site-packages (from basicsr>=1.4.2->-r requirements.txt (line 1)) (1.0.0)
+Requirement already satisfied: lmdb in /usr/local/lib/python3.10/site-packages (from basicsr>=1.4.2->-r requirements.txt (line 1)) (2.2.1)
+Requirement already satisfied: pyyaml in /usr/local/lib/python3.10/site-packages (from basicsr>=1.4.2->-r requirements.txt (line 1)) (6.0.3)
+Requirement already satisfied: requests in /usr/local/lib/python3.10/site-packages (from basicsr>=1.4.2->-r requirements.txt (line 1)) (2.34.2)
+Requirement already satisfied: scikit-image in /usr/local/lib/python3.10/site-packages (from basicsr>=1.4.2->-r requirements.txt (line 1)) (0.25.2)
+Requirement already satisfied: scipy in /usr/local/lib/python3.10/site-packages (from basicsr>=1.4.2->-r requirements.txt (line 1)) (1.15.3)
+Requirement already satisfied: tb-nightly in /usr/local/lib/python3.10/site-packages (from basicsr>=1.4.2->-r requirements.txt (line 1)) (2.21.0a20251023)
+Requirement already satisfied: yapf in /usr/local/lib/python3.10/site-packages (from basicsr>=1.4.2->-r requirements.txt (line 1)) (0.43.0)
+Requirement already satisfied: filterpy in /usr/local/lib/python3.10/site-packages (from facexlib>=0.2.5->-r requirements.txt (line 2)) (1.4.5)
+Requirement already satisfied: numba in /usr/local/lib/python3.10/site-packages (from facexlib>=0.2.5->-r requirements.txt (line 2)) (0.65.1)
+Requirement already satisfied: filelock in /usr/local/lib/python3.10/site-packages (from torch>=1.7->-r requirements.txt (line 7)) (3.29.0)
+Requirement already satisfied: typing-extensions>=4.8.0 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->-r requirements.txt (line 7)) (4.15.0)
+Requirement already satisfied: networkx in /usr/local/lib/python3.10/site-packages (from torch>=1.7->-r requirements.txt (line 7)) (3.4.2)
+Requirement already satisfied: jinja2 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->-r requirements.txt (line 7)) (3.1.6)
+Requirement already satisfied: fsspec in /usr/local/lib/python3.10/site-packages (from torch>=1.7->-r requirements.txt (line 7)) (2026.4.0)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.4.127 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->-r requirements.txt (line 7)) (12.4.127)
+Requirement already satisfied: nvidia-cuda-runtime-cu12==12.4.127 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->-r requirements.txt (line 7)) (12.4.127)
+Requirement already satisfied: nvidia-cuda-cupti-cu12==12.4.127 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->-r requirements.txt (line 7)) (12.4.127)
+Requirement already satisfied: nvidia-cudnn-cu12==9.1.0.70 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->-r requirements.txt (line 7)) (9.1.0.70)
+Requirement already satisfied: nvidia-cublas-cu12==12.4.5.8 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->-r requirements.txt (line 7)) (12.4.5.8)
+Requirement already satisfied: nvidia-cufft-cu12==11.2.1.3 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->-r requirements.txt (line 7)) (11.2.1.3)
+Requirement already satisfied: nvidia-curand-cu12==10.3.5.147 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->-r requirements.txt (line 7)) (10.3.5.147)
+Requirement already satisfied: nvidia-cusolver-cu12==11.6.1.9 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->-r requirements.txt (line 7)) (11.6.1.9)
+Requirement already satisfied: nvidia-cusparse-cu12==12.3.1.170 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->-r requirements.txt (line 7)) (12.3.1.170)
+Requirement already satisfied: nvidia-nccl-cu12==2.21.5 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->-r requirements.txt (line 7)) (2.21.5)
+Requirement already satisfied: nvidia-nvtx-cu12==12.4.127 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->-r requirements.txt (line 7)) (12.4.127)
+Requirement already satisfied: nvidia-nvjitlink-cu12==12.4.127 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->-r requirements.txt (line 7)) (12.4.127)
+Requirement already satisfied: triton==3.1.0 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->-r requirements.txt (line 7)) (3.1.0)
+Requirement already satisfied: sympy==1.13.1 in /usr/local/lib/python3.10/site-packages (from torch>=1.7->-r requirements.txt (line 7)) (1.13.1)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.10/site-packages (from sympy==1.13.1->torch>=1.7->-r requirements.txt (line 7)) (1.3.0)
+Requirement already satisfied: matplotlib in /usr/local/lib/python3.10/site-packages (from filterpy->facexlib>=0.2.5->-r requirements.txt (line 2)) (3.10.9)
+Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.10/site-packages (from jinja2->torch>=1.7->-r requirements.txt (line 7)) (3.0.3)
+Requirement already satisfied: llvmlite<0.48,>=0.47.0dev0 in /usr/local/lib/python3.10/site-packages (from numba->facexlib>=0.2.5->-r requirements.txt (line 2)) (0.47.0)
+Requirement already satisfied: charset_normalizer<4,>=2 in /usr/local/lib/python3.10/site-packages (from requests->basicsr>=1.4.2->-r requirements.txt (line 1)) (3.4.7)
+Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.10/site-packages (from requests->basicsr>=1.4.2->-r requirements.txt (line 1)) (3.18)
+Requirement already satisfied: urllib3<3,>=1.26 in /usr/local/lib/python3.10/site-packages (from requests->basicsr>=1.4.2->-r requirements.txt (line 1)) (2.7.0)
+Requirement already satisfied: certifi>=2023.5.7 in /usr/local/lib/python3.10/site-packages (from requests->basicsr>=1.4.2->-r requirements.txt (line 1)) (2026.6.17)
+Requirement already satisfied: imageio!=2.35.0,>=2.33 in /usr/local/lib/python3.10/site-packages (from scikit-image->basicsr>=1.4.2->-r requirements.txt (line 1)) (2.37.3)
+Requirement already satisfied: tifffile>=2022.8.12 in /usr/local/lib/python3.10/site-packages (from scikit-image->basicsr>=1.4.2->-r requirements.txt (line 1)) (2025.5.10)
+Requirement already satisfied: packaging>=21 in /usr/local/lib/python3.10/site-packages (from scikit-image->basicsr>=1.4.2->-r requirements.txt (line 1)) (26.2)
+Requirement already satisfied: lazy-loader>=0.4 in /usr/local/lib/python3.10/site-packages (from scikit-image->basicsr>=1.4.2->-r requirements.txt (line 1)) (0.5)
+Requirement already satisfied: absl-py>=0.4 in /usr/local/lib/python3.10/site-packages (from tb-nightly->basicsr>=1.4.2->-r requirements.txt (line 1)) (2.4.0)
+Requirement already satisfied: grpcio>=1.48.2 in /usr/local/lib/python3.10/site-packages (from tb-nightly->basicsr>=1.4.2->-r requirements.txt (line 1)) (1.81.1)
+Requirement already satisfied: markdown>=2.6.8 in /usr/local/lib/python3.10/site-packages (from tb-nightly->basicsr>=1.4.2->-r requirements.txt (line 1)) (3.10.2)
+Requirement already satisfied: protobuf!=4.24.0,>=3.19.6 in /usr/local/lib/python3.10/site-packages (from tb-nightly->basicsr>=1.4.2->-r requirements.txt (line 1)) (7.35.1)
+Requirement already satisfied: setuptools>=41.0.0 in /usr/local/lib/python3.10/site-packages (from tb-nightly->basicsr>=1.4.2->-r requirements.txt (line 1)) (68.1.2)
+Requirement already satisfied: tensorboard-data-server<0.8.0,>=0.7.0 in /usr/local/lib/python3.10/site-packages (from tb-nightly->basicsr>=1.4.2->-r requirements.txt (line 1)) (0.7.2)
+Requirement already satisfied: werkzeug>=1.0.1 in /usr/local/lib/python3.10/site-packages (from tb-nightly->basicsr>=1.4.2->-r requirements.txt (line 1)) (3.1.8)
+Requirement already satisfied: platformdirs>=3.5.1 in /usr/local/lib/python3.10/site-packages (from yapf->basicsr>=1.4.2->-r requirements.txt (line 1)) (4.10.0)
+Requirement already satisfied: tomli>=2.0.1 in /usr/local/lib/python3.10/site-packages (from yapf->basicsr>=1.4.2->-r requirements.txt (line 1)) (2.4.1)
+Requirement already satisfied: contourpy>=1.0.1 in /usr/local/lib/python3.10/site-packages (from matplotlib->filterpy->facexlib>=0.2.5->-r requirements.txt (line 2)) (1.3.2)
+Requirement already satisfied: cycler>=0.10 in /usr/local/lib/python3.10/site-packages (from matplotlib->filterpy->facexlib>=0.2.5->-r requirements.txt (line 2)) (0.12.1)
+Requirement already satisfied: fonttools>=4.22.0 in /usr/local/lib/python3.10/site-packages (from matplotlib->filterpy->facexlib>=0.2.5->-r requirements.txt (line 2)) (4.63.0)
+Requirement already satisfied: kiwisolver>=1.3.1 in /usr/local/lib/python3.10/site-packages (from matplotlib->filterpy->facexlib>=0.2.5->-r requirements.txt (line 2)) (1.5.0)
+Requirement already satisfied: pyparsing>=3 in /usr/local/lib/python3.10/site-packages (from matplotlib->filterpy->facexlib>=0.2.5->-r requirements.txt (line 2)) (3.3.2)
+Requirement already satisfied: python-dateutil>=2.7 in /usr/local/lib/python3.10/site-packages (from matplotlib->filterpy->facexlib>=0.2.5->-r requirements.txt (line 2)) (2.9.0.post0)
+Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.10/site-packages (from python-dateutil>=2.7->matplotlib->filterpy->facexlib>=0.2.5->-r requirements.txt (line 2)) (1.17.0)
+
+[notice] A new release of pip is available: 23.2.1 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+
+=> Step 4: RUN cd /app/Real-ESRGAN && python setup.py develop
+/usr/local/lib/python3.10/site-packages/setuptools/__init__.py:84: _DeprecatedInstaller: setuptools.installer and fetch_build_eggs are deprecated.
+!!
+
+        ********************************************************************************
+        Requirements should be satisfied by a PEP 517 installer.
+        If you are using pip, you can try `pip install --use-pep517`.
+        ********************************************************************************
+
+!!
+  dist.fetch_build_eggs(dist.setup_requires)
+WARNING: The wheel package is not available.
+running develop
+/usr/local/lib/python3.10/site-packages/setuptools/command/develop.py:40: EasyInstallDeprecationWarning: easy_install command is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` and ``easy_install``.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://github.com/pypa/setuptools/issues/917 for details.
+        ********************************************************************************
+
+!!
+  easy_install.initialize_options(self)
+/usr/local/lib/python3.10/site-packages/setuptools/_distutils/cmd.py:66: SetuptoolsDeprecationWarning: setup.py install is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` directly.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.
+        ********************************************************************************
+
+!!
+  self.initialize_options()
+running egg_info
+creating realesrgan.egg-info
+writing realesrgan.egg-info/PKG-INFO
+writing dependency_links to realesrgan.egg-info/dependency_links.txt
+writing requirements to realesrgan.egg-info/requires.txt
+writing top-level names to realesrgan.egg-info/top_level.txt
+writing manifest file 'realesrgan.egg-info/SOURCES.txt'
+reading manifest file 'realesrgan.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+adding license file 'LICENSE'
+writing manifest file 'realesrgan.egg-info/SOURCES.txt'
+running build_ext
+Creating /usr/local/lib/python3.10/site-packages/realesrgan.egg-link (link to .)
+Adding realesrgan 0.3.0 to easy-install.pth file
+
+Installed /app/Real-ESRGAN
+Processing dependencies for realesrgan==0.3.0
+Searching for tqdm==4.68.3
+Best match: tqdm 4.68.3
+Adding tqdm 4.68.3 to easy-install.pth file
+Installing tqdm script to /usr/local/bin
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for torchvision==0.20.0+cu124
+Best match: torchvision 0.20.0+cu124
+Adding torchvision 0.20.0+cu124 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for torch==2.5.0+cu124
+Best match: torch 2.5.0+cu124
+Adding torch 2.5.0+cu124 to easy-install.pth file
+Installing convert-caffe2-to-onnx script to /usr/local/bin
+Installing convert-onnx-to-caffe2 script to /usr/local/bin
+Installing torchfrtrace script to /usr/local/bin
+Installing torchrun script to /usr/local/bin
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for pillow==12.2.0
+Best match: pillow 12.2.0
+Adding pillow 12.2.0 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for opencv-python==4.13.0.92
+Best match: opencv-python 4.13.0.92
+Adding opencv-python 4.13.0.92 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for numpy==2.2.6
+Best match: numpy 2.2.6
+Adding numpy 2.2.6 to easy-install.pth file
+Installing f2py script to /usr/local/bin
+Installing numpy-config script to /usr/local/bin
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for gfpgan==1.3.8
+Best match: gfpgan 1.3.8
+Adding gfpgan 1.3.8 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for facexlib==0.3.0
+Best match: facexlib 0.3.0
+Adding facexlib 0.3.0 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for basicsr==1.4.2
+Best match: basicsr 1.4.2
+Adding basicsr 1.4.2 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for sympy==1.13.1
+Best match: sympy 1.13.1
+Adding sympy 1.13.1 to easy-install.pth file
+Installing isympy script to /usr/local/bin
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for triton==3.1.0
+Best match: triton 3.1.0
+Adding triton 3.1.0 to easy-install.pth file
+Installing proton script to /usr/local/bin
+Installing proton-viewer script to /usr/local/bin
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for nvidia-nvjitlink-cu12==12.4.127
+Best match: nvidia-nvjitlink-cu12 12.4.127
+Adding nvidia-nvjitlink-cu12 12.4.127 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for nvidia-nvtx-cu12==12.4.127
+Best match: nvidia-nvtx-cu12 12.4.127
+Adding nvidia-nvtx-cu12 12.4.127 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for nvidia-nccl-cu12==2.21.5
+Best match: nvidia-nccl-cu12 2.21.5
+Adding nvidia-nccl-cu12 2.21.5 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for nvidia-cusparse-cu12==12.3.1.170
+Best match: nvidia-cusparse-cu12 12.3.1.170
+Adding nvidia-cusparse-cu12 12.3.1.170 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for nvidia-cusolver-cu12==11.6.1.9
+Best match: nvidia-cusolver-cu12 11.6.1.9
+Adding nvidia-cusolver-cu12 11.6.1.9 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for nvidia-curand-cu12==10.3.5.147
+Best match: nvidia-curand-cu12 10.3.5.147
+Adding nvidia-curand-cu12 10.3.5.147 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for nvidia-cufft-cu12==11.2.1.3
+Best match: nvidia-cufft-cu12 11.2.1.3
+Adding nvidia-cufft-cu12 11.2.1.3 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for nvidia-cublas-cu12==12.4.5.8
+Best match: nvidia-cublas-cu12 12.4.5.8
+Adding nvidia-cublas-cu12 12.4.5.8 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for nvidia-cudnn-cu12==9.1.0.70
+Best match: nvidia-cudnn-cu12 9.1.0.70
+Adding nvidia-cudnn-cu12 9.1.0.70 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for nvidia-cuda-cupti-cu12==12.4.127
+Best match: nvidia-cuda-cupti-cu12 12.4.127
+Adding nvidia-cuda-cupti-cu12 12.4.127 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for nvidia-cuda-runtime-cu12==12.4.127
+Best match: nvidia-cuda-runtime-cu12 12.4.127
+Adding nvidia-cuda-runtime-cu12 12.4.127 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for nvidia-cuda-nvrtc-cu12==12.4.127
+Best match: nvidia-cuda-nvrtc-cu12 12.4.127
+Adding nvidia-cuda-nvrtc-cu12 12.4.127 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for fsspec==2026.4.0
+Best match: fsspec 2026.4.0
+Adding fsspec 2026.4.0 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for jinja2==3.1.6
+Best match: jinja2 3.1.6
+Adding jinja2 3.1.6 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for networkx==3.4.2
+Best match: networkx 3.4.2
+Adding networkx 3.4.2 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for typing-extensions==4.15.0
+Best match: typing-extensions 4.15.0
+Adding typing-extensions 4.15.0 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for filelock==3.29.0
+Best match: filelock 3.29.0
+Adding filelock 3.29.0 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for yapf==0.43.0
+Best match: yapf 0.43.0
+Adding yapf 0.43.0 to easy-install.pth file
+Installing yapf script to /usr/local/bin
+Installing yapf-diff script to /usr/local/bin
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for tb-nightly==2.21.0a20251023
+Best match: tb-nightly 2.21.0a20251023
+Adding tb-nightly 2.21.0a20251023 to easy-install.pth file
+Installing tensorboard script to /usr/local/bin
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for scipy==1.15.3
+Best match: scipy 1.15.3
+Adding scipy 1.15.3 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for pyyaml==6.0.3
+Best match: pyyaml 6.0.3
+Adding pyyaml 6.0.3 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for lmdb==2.2.1
+Best match: lmdb 2.2.1
+Adding lmdb 2.2.1 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for numba==0.65.1
+Best match: numba 0.65.1
+Adding numba 0.65.1 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for filterpy==1.4.5
+Best match: filterpy 1.4.5
+Adding filterpy 1.4.5 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for scikit-image==0.25.2
+Best match: scikit-image 0.25.2
+Adding scikit-image 0.25.2 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for requests==2.34.2
+Best match: requests 2.34.2
+Adding requests 2.34.2 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for future==1.0.0
+Best match: future 1.0.0
+Adding future 1.0.0 to easy-install.pth file
+Installing futurize script to /usr/local/bin
+Installing pasteurize script to /usr/local/bin
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for addict==2.4.0
+Best match: addict 2.4.0
+Adding addict 2.4.0 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for mpmath==1.3.0
+Best match: mpmath 1.3.0
+Adding mpmath 1.3.0 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for markupsafe==3.0.3
+Best match: markupsafe 3.0.3
+Adding markupsafe 3.0.3 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for tomli==2.4.1
+Best match: tomli 2.4.1
+Adding tomli 2.4.1 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for platformdirs==4.10.0
+Best match: platformdirs 4.10.0
+Adding platformdirs 4.10.0 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for werkzeug==3.1.8
+Best match: werkzeug 3.1.8
+Adding werkzeug 3.1.8 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for tensorboard-data-server==0.7.2
+Best match: tensorboard-data-server 0.7.2
+Adding tensorboard-data-server 0.7.2 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for setuptools==68.1.2
+Best match: setuptools 68.1.2
+Adding setuptools 68.1.2 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for protobuf==7.35.1
+Best match: protobuf 7.35.1
+Adding protobuf 7.35.1 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for packaging==26.2
+Best match: packaging 26.2
+Adding packaging 26.2 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for markdown==3.10.2
+Best match: markdown 3.10.2
+Adding markdown 3.10.2 to easy-install.pth file
+Installing markdown_py script to /usr/local/bin
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for grpcio==1.81.1
+Best match: grpcio 1.81.1
+Adding grpcio 1.81.1 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for absl-py==2.4.0
+Best match: absl-py 2.4.0
+Adding absl-py 2.4.0 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for llvmlite==0.47.0
+Best match: llvmlite 0.47.0
+Adding llvmlite 0.47.0 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for matplotlib==3.10.9
+Best match: matplotlib 3.10.9
+Adding matplotlib 3.10.9 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for lazy-loader==0.5
+Best match: lazy-loader 0.5
+Adding lazy-loader 0.5 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for tifffile==2025.5.10
+Best match: tifffile 2025.5.10
+Adding tifffile 2025.5.10 to easy-install.pth file
+Installing lsm2bin script to /usr/local/bin
+Installing tiff2fsspec script to /usr/local/bin
+Installing tiffcomment script to /usr/local/bin
+Installing tifffile script to /usr/local/bin
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for imageio==2.37.3
+Best match: imageio 2.37.3
+Adding imageio 2.37.3 to easy-install.pth file
+Installing imageio_download_bin script to /usr/local/bin
+Installing imageio_remove_bin script to /usr/local/bin
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for certifi==2026.6.17
+Best match: certifi 2026.6.17
+Adding certifi 2026.6.17 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for urllib3==2.7.0
+Best match: urllib3 2.7.0
+Adding urllib3 2.7.0 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for idna==3.18
+Best match: idna 3.18
+Adding idna 3.18 to easy-install.pth file
+Installing idna script to /usr/local/bin
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for charset-normalizer==3.4.7
+Best match: charset-normalizer 3.4.7
+Adding charset-normalizer 3.4.7 to easy-install.pth file
+Installing normalizer script to /usr/local/bin
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for python-dateutil==2.9.0.post0
+Best match: python-dateutil 2.9.0.post0
+Adding python-dateutil 2.9.0.post0 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for pyparsing==3.3.2
+Best match: pyparsing 3.3.2
+Adding pyparsing 3.3.2 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for kiwisolver==1.5.0
+Best match: kiwisolver 1.5.0
+Adding kiwisolver 1.5.0 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for fonttools==4.63.0
+Best match: fonttools 4.63.0
+Adding fonttools 4.63.0 to easy-install.pth file
+Installing fonttools script to /usr/local/bin
+Installing pyftmerge script to /usr/local/bin
+Installing pyftsubset script to /usr/local/bin
+Installing ttx script to /usr/local/bin
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for cycler==0.12.1
+Best match: cycler 0.12.1
+Adding cycler 0.12.1 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for contourpy==1.3.2
+Best match: contourpy 1.3.2
+Adding contourpy 1.3.2 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Searching for six==1.17.0
+Best match: six 1.17.0
+Adding six 1.17.0 to easy-install.pth file
+
+Using /usr/local/lib/python3.10/site-packages
+Finished processing dependencies for realesrgan==0.3.0
+Saving image...
+Image saved, took 2.44s
+
+Built image im-KbrgKEfdFfXFhY6UuPmFa0 in 245.90s
+
+
+Building image im-UCbX4pIXEEl8PX8c7lVOPg
+
+=> Step 0: FROM base
+
+=> Step 1: RUN git clone https://github.com/naver-ai/ZIM.git /app/ZIM
+Cloning into '/app/ZIM'...
+
+=> Step 2: RUN cd /app/ZIM && pip install -e .
+Looking in indexes: http://pypi-mirror.modal.local:5555/simple
+Obtaining file:///app/ZIM
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Collecting onnx (from zim_anything==0.1)
+  Obtaining dependency information for onnx from http://pypi-mirror.modal.local:5555/simple/onnx/onnx-1.22.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/onnx/onnx-1.22.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.5 kB)
+Collecting onnxruntime-gpu (from zim_anything==0.1)
+  Obtaining dependency information for onnxruntime-gpu from http://pypi-mirror.modal.local:5555/simple/onnxruntime-gpu/onnxruntime_gpu-1.23.2-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/onnxruntime-gpu/onnxruntime_gpu-1.23.2-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (5.4 kB)
+Requirement already satisfied: numpy>=1.23.2 in /usr/local/lib/python3.10/site-packages (from onnx->zim_anything==0.1) (2.2.6)
+Requirement already satisfied: protobuf>=4.25.1 in /usr/local/lib/python3.10/site-packages (from onnx->zim_anything==0.1) (7.35.1)
+Requirement already satisfied: typing_extensions>=4.15.0 in /usr/local/lib/python3.10/site-packages (from onnx->zim_anything==0.1) (4.15.0)
+Collecting ml_dtypes>=0.5.4 (from onnx->zim_anything==0.1)
+  Obtaining dependency information for ml_dtypes>=0.5.4 from http://pypi-mirror.modal.local:5555/simple/ml-dtypes/ml_dtypes-0.5.4-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/ml-dtypes/ml_dtypes-0.5.4-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.9 kB)
+Collecting coloredlogs (from onnxruntime-gpu->zim_anything==0.1)
+  Obtaining dependency information for coloredlogs from http://pypi-mirror.modal.local:5555/simple/coloredlogs/coloredlogs-15.0.1-py2.py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/coloredlogs/coloredlogs-15.0.1-py2.py3-none-any.whl.metadata (12 kB)
+Collecting flatbuffers (from onnxruntime-gpu->zim_anything==0.1)
+  Obtaining dependency information for flatbuffers from http://pypi-mirror.modal.local:5555/simple/flatbuffers/flatbuffers-25.12.19-py2.py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/flatbuffers/flatbuffers-25.12.19-py2.py3-none-any.whl.metadata (1.0 kB)
+Requirement already satisfied: packaging in /usr/local/lib/python3.10/site-packages (from onnxruntime-gpu->zim_anything==0.1) (26.2)
+Requirement already satisfied: sympy in /usr/local/lib/python3.10/site-packages (from onnxruntime-gpu->zim_anything==0.1) (1.13.1)
+Collecting humanfriendly>=9.1 (from coloredlogs->onnxruntime-gpu->zim_anything==0.1)
+  Obtaining dependency information for humanfriendly>=9.1 from http://pypi-mirror.modal.local:5555/simple/humanfriendly/humanfriendly-10.0-py2.py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/humanfriendly/humanfriendly-10.0-py2.py3-none-any.whl.metadata (9.2 kB)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.10/site-packages (from sympy->onnxruntime-gpu->zim_anything==0.1) (1.3.0)
+Downloading http://pypi-mirror.modal.local:5555/simple/onnx/onnx-1.22.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (19.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 19.1/19.1 MB 258.2 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/onnxruntime-gpu/onnxruntime_gpu-1.23.2-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (300.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 300.5/300.5 MB 246.6 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/ml-dtypes/ml_dtypes-0.5.4-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (5.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.0/5.0 MB 392.3 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/coloredlogs/coloredlogs-15.0.1-py2.py3-none-any.whl (46 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 46.0/46.0 kB 216.8 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/flatbuffers/flatbuffers-25.12.19-py2.py3-none-any.whl (26 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/humanfriendly/humanfriendly-10.0-py2.py3-none-any.whl (86 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 86.8/86.8 kB 278.4 MB/s eta 0:00:00
+Building wheels for collected packages: zim_anything
+  Building editable for zim_anything (pyproject.toml): started
+  Building editable for zim_anything (pyproject.toml): finished with status 'done'
+  Created wheel for zim_anything: filename=zim_anything-0.1-0.editable-py3-none-any.whl size=9989 sha256=f3fbc8b9f13512746b5f4353a3edd8ca80461e723cd1981c884333abb76470f9
+  Stored in directory: /tmp/pip-ephem-wheel-cache-dvi0_aoq/wheels/ac/ae/87/de25433f903e76f58b76580b28c2b456ee3cc0daeb53e353b2
+Successfully built zim_anything
+Installing collected packages: flatbuffers, ml_dtypes, humanfriendly, onnx, coloredlogs, onnxruntime-gpu, zim_anything
+Successfully installed coloredlogs-15.0.1 flatbuffers-25.12.19 humanfriendly-10.0 ml_dtypes-0.5.4 onnx-1.22.0 onnxruntime-gpu-1.23.2 zim_anything-0.1
+
+[notice] A new release of pip is available: 23.2.1 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+
+=> Step 3: RUN mkdir -p /app/ZIM/zim_vit_l_2092
+
+=> Step 4: RUN wget -q https://huggingface.co/naver-iv/zim-anything-vitl/resolve/main/zim_vit_l_2092/encoder.onnx -O /app/ZIM/zim_vit_l_2092/encoder.onnx
+
+=> Step 5: RUN wget -q https://huggingface.co/naver-iv/zim-anything-vitl/resolve/main/zim_vit_l_2092/decoder.onnx -O /app/ZIM/zim_vit_l_2092/decoder.onnx
+Saving image...
+Image saved, took 4.80s
+
+Built image im-UCbX4pIXEEl8PX8c7lVOPg in 89.61s
+
+
+Building image im-sMdOlbnp0XD3P9HKksTslP
+
+=> Step 0: FROM base
+
+=> Step 1: RUN git clone https://github.com/google/draco.git /tmp/draco
+Cloning into '/tmp/draco'...
+
+=> Step 2: RUN cd /tmp/draco && mkdir build && cd build && cmake .. && make -j4 && make install
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found PythonInterp: /usr/local/bin/python (found version "3.10.13") 
+--- Running combined CXX flags test, flags: -Wno-deprecated-declarations
+--- Passed combined CXX flags test
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /tmp/draco/build
+[  0%] Building CXX object CMakeFiles/draco_attributes.dir/src/draco/attributes/attribute_octahedron_transform.cc.o
+[  1%] Built target draco_compression_attributes_pred_schemes_dec
+[  1%] Building CXX object CMakeFiles/draco_compression_attributes_dec.dir/src/draco/compression/attributes/attributes_decoder.cc.o
+[  2%] Building CXX object CMakeFiles/draco_compression_attributes_enc.dir/src/draco/compression/attributes/attributes_encoder.cc.o
+[  3%] Building CXX object CMakeFiles/draco_compression_attributes_pred_schemes_enc.dir/src/draco/compression/attributes/prediction_schemes/prediction_scheme_encoder_factory.cc.o
+[  4%] Building CXX object CMakeFiles/draco_attributes.dir/src/draco/attributes/attribute_quantization_transform.cc.o
+[  5%] Building CXX object CMakeFiles/draco_compression_attributes_dec.dir/src/draco/compression/attributes/kd_tree_attributes_decoder.cc.o
+[  6%] Building CXX object CMakeFiles/draco_compression_attributes_enc.dir/src/draco/compression/attributes/kd_tree_attributes_encoder.cc.o
+[  6%] Built target draco_compression_attributes_pred_schemes_enc
+[  7%] Building CXX object CMakeFiles/draco_compression_bit_coders.dir/src/draco/compression/bit_coders/adaptive_rans_bit_decoder.cc.o
+[  7%] Building CXX object CMakeFiles/draco_compression_bit_coders.dir/src/draco/compression/bit_coders/adaptive_rans_bit_encoder.cc.o
+[  8%] Building CXX object CMakeFiles/draco_attributes.dir/src/draco/attributes/attribute_transform.cc.o
+[  9%] Building CXX object CMakeFiles/draco_compression_bit_coders.dir/src/draco/compression/bit_coders/direct_bit_decoder.cc.o
+[ 10%] Building CXX object CMakeFiles/draco_attributes.dir/src/draco/attributes/geometry_attribute.cc.o
+[ 11%] Building CXX object CMakeFiles/draco_compression_bit_coders.dir/src/draco/compression/bit_coders/direct_bit_encoder.cc.o
+[ 11%] Building CXX object CMakeFiles/draco_attributes.dir/src/draco/attributes/point_attribute.cc.o
+[ 12%] Building CXX object CMakeFiles/draco_compression_bit_coders.dir/src/draco/compression/bit_coders/rans_bit_decoder.cc.o
+[ 12%] Building CXX object CMakeFiles/draco_compression_bit_coders.dir/src/draco/compression/bit_coders/rans_bit_encoder.cc.o
+[ 13%] Building CXX object CMakeFiles/draco_compression_bit_coders.dir/src/draco/compression/bit_coders/symbol_bit_decoder.cc.o
+[ 13%] Building CXX object CMakeFiles/draco_compression_attributes_dec.dir/src/draco/compression/attributes/sequential_attribute_decoder.cc.o
+[ 13%] Building CXX object CMakeFiles/draco_compression_attributes_enc.dir/src/draco/compression/attributes/sequential_attribute_encoder.cc.o
+[ 14%] Building CXX object CMakeFiles/draco_compression_bit_coders.dir/src/draco/compression/bit_coders/symbol_bit_encoder.cc.o
+[ 15%] Building CXX object CMakeFiles/draco_compression_attributes_dec.dir/src/draco/compression/attributes/sequential_attribute_decoders_controller.cc.o
+[ 16%] Building CXX object CMakeFiles/draco_compression_attributes_enc.dir/src/draco/compression/attributes/sequential_attribute_encoders_controller.cc.o
+[ 16%] Built target draco_compression_bit_coders
+[ 16%] Built target draco_enc_config
+[ 16%] Built target draco_dec_config
+[ 17%] Building CXX object CMakeFiles/draco_compression_attributes_dec.dir/src/draco/compression/attributes/sequential_integer_attribute_decoder.cc.o
+[ 17%] Built target draco_attributes
+[ 18%] Building CXX object CMakeFiles/draco_compression_attributes_dec.dir/src/draco/compression/attributes/sequential_normal_attribute_decoder.cc.o
+[ 19%] Building CXX object CMakeFiles/draco_compression_decode.dir/src/draco/compression/decode.cc.o
+[ 20%] Building CXX object CMakeFiles/draco_compression_attributes_enc.dir/src/draco/compression/attributes/sequential_integer_attribute_encoder.cc.o
+[ 21%] Building CXX object CMakeFiles/draco_compression_attributes_enc.dir/src/draco/compression/attributes/sequential_normal_attribute_encoder.cc.o
+[ 21%] Built target draco_compression_decode
+[ 21%] Building CXX object CMakeFiles/draco_compression_attributes_enc.dir/src/draco/compression/attributes/sequential_quantization_attribute_encoder.cc.o
+[ 21%] Building CXX object CMakeFiles/draco_compression_attributes_dec.dir/src/draco/compression/attributes/sequential_quantization_attribute_decoder.cc.o
+[ 21%] Building CXX object CMakeFiles/draco_compression_encode.dir/src/draco/compression/encode.cc.o
+[ 21%] Built target draco_compression_attributes_dec
+[ 22%] Building CXX object CMakeFiles/draco_compression_entropy.dir/src/draco/compression/entropy/shannon_entropy.cc.o
+[ 22%] Building CXX object CMakeFiles/draco_compression_entropy.dir/src/draco/compression/entropy/symbol_decoding.cc.o
+[ 23%] Building CXX object CMakeFiles/draco_compression_entropy.dir/src/draco/compression/entropy/symbol_encoding.cc.o
+[ 23%] Built target draco_compression_attributes_enc
+[ 23%] Built target draco_compression_mesh_traverser
+[ 24%] Building CXX object CMakeFiles/draco_compression_encode.dir/src/draco/compression/expert_encode.cc.o
+[ 25%] Building CXX object CMakeFiles/draco_compression_mesh_dec.dir/src/draco/compression/mesh/mesh_decoder.cc.o
+[ 26%] Building CXX object CMakeFiles/draco_compression_mesh_dec.dir/src/draco/compression/mesh/mesh_edgebreaker_decoder.cc.o
+[ 26%] Building CXX object CMakeFiles/draco_compression_mesh_dec.dir/src/draco/compression/mesh/mesh_edgebreaker_decoder_impl.cc.o
+[ 26%] Built target draco_compression_encode
+[ 27%] Building CXX object CMakeFiles/draco_compression_mesh_dec.dir/src/draco/compression/mesh/mesh_sequential_decoder.cc.o
+[ 28%] Building CXX object CMakeFiles/draco_compression_mesh_enc.dir/src/draco/compression/mesh/mesh_edgebreaker_encoder.cc.o
+[ 28%] Building CXX object CMakeFiles/draco_compression_mesh_enc.dir/src/draco/compression/mesh/mesh_edgebreaker_encoder_impl.cc.o
+[ 29%] Building CXX object CMakeFiles/draco_compression_mesh_enc.dir/src/draco/compression/mesh/mesh_encoder.cc.o
+[ 30%] Building CXX object CMakeFiles/draco_compression_mesh_enc.dir/src/draco/compression/mesh/mesh_sequential_encoder.cc.o
+[ 30%] Built target draco_compression_entropy
+[ 31%] Building CXX object CMakeFiles/draco_compression_options.dir/src/draco/compression/draco_compression_options.cc.o
+[ 31%] Built target draco_compression_options
+[ 31%] Building CXX object CMakeFiles/draco_compression_point_cloud_dec.dir/src/draco/compression/point_cloud/point_cloud_decoder.cc.o
+[ 32%] Building CXX object CMakeFiles/draco_compression_point_cloud_dec.dir/src/draco/compression/point_cloud/point_cloud_kd_tree_decoder.cc.o
+[ 32%] Built target draco_compression_mesh_dec
+[ 33%] Building CXX object CMakeFiles/draco_compression_point_cloud_dec.dir/src/draco/compression/point_cloud/point_cloud_sequential_decoder.cc.o
+[ 33%] Building CXX object CMakeFiles/draco_compression_point_cloud_enc.dir/src/draco/compression/point_cloud/point_cloud_encoder.cc.o
+[ 34%] Building CXX object CMakeFiles/draco_compression_point_cloud_enc.dir/src/draco/compression/point_cloud/point_cloud_kd_tree_encoder.cc.o
+[ 34%] Built target draco_compression_point_cloud_dec
+[ 35%] Building CXX object CMakeFiles/draco_compression_point_cloud_enc.dir/src/draco/compression/point_cloud/point_cloud_sequential_encoder.cc.o
+[ 36%] Building CXX object CMakeFiles/draco_core.dir/src/draco/core/bit_utils.cc.o
+[ 36%] Built target draco_compression_mesh_enc
+[ 36%] Building CXX object CMakeFiles/draco_io.dir/src/draco/io/file_reader_factory.cc.o
+[ 37%] Building CXX object CMakeFiles/draco_mesh.dir/src/draco/mesh/corner_table.cc.o
+[ 37%] Building CXX object CMakeFiles/draco_core.dir/src/draco/core/bounding_box.cc.o
+[ 38%] Building CXX object CMakeFiles/draco_io.dir/src/draco/io/file_utils.cc.o
+[ 38%] Built target draco_compression_point_cloud_enc
+[ 39%] Building CXX object CMakeFiles/draco_metadata_dec.dir/src/draco/metadata/metadata_decoder.cc.o
+[ 40%] Building CXX object CMakeFiles/draco_core.dir/src/draco/core/cycle_timer.cc.o
+[ 41%] Building CXX object CMakeFiles/draco_core.dir/src/draco/core/data_buffer.cc.o
+[ 42%] Building CXX object CMakeFiles/draco_io.dir/src/draco/io/file_writer_factory.cc.o
+[ 43%] Building CXX object CMakeFiles/draco_mesh.dir/src/draco/mesh/mesh.cc.o
+[ 44%] Building CXX object CMakeFiles/draco_core.dir/src/draco/core/decoder_buffer.cc.o
+[ 44%] Built target draco_metadata_dec
+[ 45%] Building CXX object CMakeFiles/draco_io.dir/src/draco/io/file_writer_utils.cc.o
+[ 45%] Building CXX object CMakeFiles/draco_io.dir/src/draco/io/mesh_io.cc.o
+[ 45%] Building CXX object CMakeFiles/draco_core.dir/src/draco/core/divide.cc.o
+[ 46%] Building CXX object CMakeFiles/draco_core.dir/src/draco/core/draco_types.cc.o
+[ 47%] Building CXX object CMakeFiles/draco_core.dir/src/draco/core/encoder_buffer.cc.o
+[ 47%] Building CXX object CMakeFiles/draco_mesh.dir/src/draco/mesh/mesh_are_equivalent.cc.o
+[ 48%] Building CXX object CMakeFiles/draco_mesh.dir/src/draco/mesh/mesh_attribute_corner_table.cc.o
+[ 48%] Building CXX object CMakeFiles/draco_core.dir/src/draco/core/hash_utils.cc.o
+[ 49%] Building CXX object CMakeFiles/draco_core.dir/src/draco/core/options.cc.o
+[ 50%] Building CXX object CMakeFiles/draco_io.dir/src/draco/io/obj_decoder.cc.o
+[ 51%] Building CXX object CMakeFiles/draco_core.dir/src/draco/core/quantization_utils.cc.o
+[ 52%] Building CXX object CMakeFiles/draco_io.dir/src/draco/io/obj_encoder.cc.o
+[ 53%] Building CXX object CMakeFiles/draco_mesh.dir/src/draco/mesh/mesh_cleanup.cc.o
+[ 53%] Built target draco_core
+[ 54%] Building CXX object CMakeFiles/draco_mesh.dir/src/draco/mesh/mesh_features.cc.o
+[ 54%] Building CXX object CMakeFiles/draco_mesh.dir/src/draco/mesh/mesh_misc_functions.cc.o
+[ 54%] Building CXX object CMakeFiles/draco_io.dir/src/draco/io/parser_utils.cc.o
+[ 54%] Building CXX object CMakeFiles/draco_metadata_enc.dir/src/draco/metadata/metadata_encoder.cc.o
+[ 55%] Building CXX object CMakeFiles/draco_mesh.dir/src/draco/mesh/mesh_stripifier.cc.o
+[ 56%] Building CXX object CMakeFiles/draco_io.dir/src/draco/io/ply_decoder.cc.o
+[ 57%] Building CXX object CMakeFiles/draco_io.dir/src/draco/io/ply_encoder.cc.o
+[ 57%] Built target draco_metadata_enc
+[ 57%] Building CXX object CMakeFiles/draco_metadata.dir/src/draco/metadata/geometry_metadata.cc.o
+[ 58%] Building CXX object CMakeFiles/draco_mesh.dir/src/draco/mesh/triangle_soup_mesh_builder.cc.o
+[ 59%] Building CXX object CMakeFiles/draco_animation_dec.dir/src/draco/animation/keyframe_animation_decoder.cc.o
+[ 60%] Building CXX object CMakeFiles/draco_metadata.dir/src/draco/metadata/metadata.cc.o
+[ 60%] Built target draco_mesh
+[ 61%] Building CXX object CMakeFiles/draco_io.dir/src/draco/io/ply_reader.cc.o
+[ 62%] Building CXX object CMakeFiles/draco_animation_enc.dir/src/draco/animation/keyframe_animation_encoder.cc.o
+[ 62%] Built target draco_animation_dec
+[ 63%] Building CXX object CMakeFiles/draco_metadata.dir/src/draco/metadata/property_attribute.cc.o
+[ 64%] Building CXX object CMakeFiles/draco_metadata.dir/src/draco/metadata/property_table.cc.o
+[ 64%] Building CXX object CMakeFiles/draco_animation.dir/src/draco/animation/keyframe_animation.cc.o
+[ 64%] Building CXX object CMakeFiles/draco_metadata.dir/src/draco/metadata/structural_metadata.cc.o
+[ 64%] Built target draco_animation_enc
+[ 65%] Building CXX object CMakeFiles/draco_point_cloud.dir/src/draco/point_cloud/point_cloud.cc.o
+[ 66%] Building CXX object CMakeFiles/draco_metadata.dir/src/draco/metadata/structural_metadata_schema.cc.o
+[ 66%] Built target draco_metadata
+[ 66%] Building CXX object CMakeFiles/draco_io.dir/src/draco/io/stl_decoder.cc.o
+[ 66%] Built target draco_animation
+[ 67%] Building CXX object CMakeFiles/draco_io.dir/src/draco/io/stl_encoder.cc.o
+[ 68%] Building CXX object CMakeFiles/draco_io.dir/src/draco/io/point_cloud_io.cc.o
+[ 69%] Building CXX object CMakeFiles/draco_points_dec.dir/src/draco/compression/point_cloud/algorithms/dynamic_integer_points_kd_tree_decoder.cc.o
+[ 70%] Building CXX object CMakeFiles/draco_point_cloud.dir/src/draco/point_cloud/point_cloud_builder.cc.o
+[ 70%] Building CXX object CMakeFiles/draco_points_dec.dir/src/draco/compression/point_cloud/algorithms/float_points_tree_decoder.cc.o
+[ 71%] Building CXX object CMakeFiles/draco_io.dir/src/draco/io/stdio_file_reader.cc.o
+[ 71%] Building CXX object CMakeFiles/draco_io.dir/src/draco/io/stdio_file_writer.cc.o
+[ 71%] Built target draco_point_cloud
+[ 72%] Building CXX object CMakeFiles/draco_points_enc.dir/src/draco/compression/point_cloud/algorithms/dynamic_integer_points_kd_tree_encoder.cc.o
+[ 73%] Building CXX object CMakeFiles/draco_points_enc.dir/src/draco/compression/point_cloud/algorithms/float_points_tree_encoder.cc.o
+[ 73%] Built target draco_io
+[ 73%] Built target draco_points_dec
+[ 73%] Built target draco_points_enc
+[ 74%] Linking CXX static library libdraco.a
+[ 74%] Built target draco_static
+[ 74%] Building CXX object CMakeFiles/draco_encoder.dir/src/draco/tools/draco_encoder.cc.o
+[ 75%] Building CXX object CMakeFiles/draco_encoder.dir/src/draco/io/file_utils.cc.o
+[ 76%] Building CXX object CMakeFiles/draco_encoder.dir/src/draco/io/file_reader_factory.cc.o
+[ 77%] Building CXX object CMakeFiles/draco_decoder.dir/src/draco/tools/draco_decoder.cc.o
+[ 78%] Building CXX object CMakeFiles/draco_encoder.dir/src/draco/io/file_writer_factory.cc.o
+[ 78%] Building CXX object CMakeFiles/draco_decoder.dir/src/draco/io/file_reader_factory.cc.o
+[ 78%] Building CXX object CMakeFiles/draco_encoder.dir/src/draco/io/file_writer_utils.cc.o
+[ 79%] Building CXX object CMakeFiles/draco_decoder.dir/src/draco/io/file_utils.cc.o
+[ 80%] Building CXX object CMakeFiles/draco_encoder.dir/src/draco/io/mesh_io.cc.o
+[ 81%] Building CXX object CMakeFiles/draco_decoder.dir/src/draco/io/file_writer_factory.cc.o
+[ 81%] Building CXX object CMakeFiles/draco_decoder.dir/src/draco/io/file_writer_utils.cc.o
+[ 82%] Building CXX object CMakeFiles/draco_encoder.dir/src/draco/io/obj_decoder.cc.o
+[ 83%] Building CXX object CMakeFiles/draco_encoder.dir/src/draco/io/obj_encoder.cc.o
+[ 84%] Building CXX object CMakeFiles/draco_decoder.dir/src/draco/io/mesh_io.cc.o
+[ 85%] Building CXX object CMakeFiles/draco_decoder.dir/src/draco/io/obj_decoder.cc.o
+[ 85%] Building CXX object CMakeFiles/draco_encoder.dir/src/draco/io/parser_utils.cc.o
+[ 86%] Building CXX object CMakeFiles/draco_decoder.dir/src/draco/io/obj_encoder.cc.o
+[ 86%] Building CXX object CMakeFiles/draco_decoder.dir/src/draco/io/parser_utils.cc.o
+[ 87%] Building CXX object CMakeFiles/draco_encoder.dir/src/draco/io/ply_decoder.cc.o
+[ 88%] Building CXX object CMakeFiles/draco_decoder.dir/src/draco/io/ply_decoder.cc.o
+[ 89%] Building CXX object CMakeFiles/draco_decoder.dir/src/draco/io/ply_encoder.cc.o
+[ 90%] Building CXX object CMakeFiles/draco_encoder.dir/src/draco/io/ply_encoder.cc.o
+[ 90%] Building CXX object CMakeFiles/draco_decoder.dir/src/draco/io/ply_reader.cc.o
+[ 91%] Building CXX object CMakeFiles/draco_decoder.dir/src/draco/io/stl_decoder.cc.o
+[ 91%] Building CXX object CMakeFiles/draco_encoder.dir/src/draco/io/ply_reader.cc.o
+[ 92%] Building CXX object CMakeFiles/draco_decoder.dir/src/draco/io/stl_encoder.cc.o
+[ 93%] Building CXX object CMakeFiles/draco_encoder.dir/src/draco/io/stl_decoder.cc.o
+[ 94%] Building CXX object CMakeFiles/draco_encoder.dir/src/draco/io/stl_encoder.cc.o
+[ 95%] Building CXX object CMakeFiles/draco_decoder.dir/src/draco/io/point_cloud_io.cc.o
+[ 95%] Building CXX object CMakeFiles/draco_decoder.dir/src/draco/io/stdio_file_reader.cc.o
+[ 96%] Building CXX object CMakeFiles/draco_encoder.dir/src/draco/io/point_cloud_io.cc.o
+[ 97%] Building CXX object CMakeFiles/draco_decoder.dir/src/draco/io/stdio_file_writer.cc.o
+[ 97%] Building CXX object CMakeFiles/draco_encoder.dir/src/draco/io/stdio_file_reader.cc.o
+[ 98%] Building CXX object CMakeFiles/draco_encoder.dir/src/draco/io/stdio_file_writer.cc.o
+[ 99%] Linking CXX executable draco_decoder
+[ 99%] Built target draco_decoder
+[100%] Linking CXX executable draco_encoder
+[100%] Built target draco_encoder
+Consolidate compiler generated dependencies of target draco_attributes
+[  3%] Built target draco_attributes
+Consolidate compiler generated dependencies of target draco_compression_attributes_dec
+[  8%] Built target draco_compression_attributes_dec
+Consolidate compiler generated dependencies of target draco_compression_attributes_enc
+[ 13%] Built target draco_compression_attributes_enc
+[ 13%] Built target draco_compression_attributes_pred_schemes_dec
+Consolidate compiler generated dependencies of target draco_compression_attributes_pred_schemes_enc
+[ 14%] Built target draco_compression_attributes_pred_schemes_enc
+Consolidate compiler generated dependencies of target draco_compression_bit_coders
+[ 20%] Built target draco_compression_bit_coders
+[ 20%] Built target draco_enc_config
+[ 20%] Built target draco_dec_config
+Consolidate compiler generated dependencies of target draco_compression_decode
+[ 21%] Built target draco_compression_decode
+Consolidate compiler generated dependencies of target draco_compression_encode
+[ 22%] Built target draco_compression_encode
+Consolidate compiler generated dependencies of target draco_compression_entropy
+[ 24%] Built target draco_compression_entropy
+[ 24%] Built target draco_compression_mesh_traverser
+Consolidate compiler generated dependencies of target draco_compression_mesh_dec
+[ 27%] Built target draco_compression_mesh_dec
+Consolidate compiler generated dependencies of target draco_compression_mesh_enc
+[ 30%] Built target draco_compression_mesh_enc
+Consolidate compiler generated dependencies of target draco_compression_options
+[ 31%] Built target draco_compression_options
+Consolidate compiler generated dependencies of target draco_compression_point_cloud_dec
+[ 33%] Built target draco_compression_point_cloud_dec
+Consolidate compiler generated dependencies of target draco_compression_point_cloud_enc
+[ 35%] Built target draco_compression_point_cloud_enc
+Consolidate compiler generated dependencies of target draco_core
+[ 43%] Built target draco_core
+Consolidate compiler generated dependencies of target draco_io
+[ 54%] Built target draco_io
+Consolidate compiler generated dependencies of target draco_mesh
+[ 61%] Built target draco_mesh
+Consolidate compiler generated dependencies of target draco_metadata_dec
+[ 62%] Built target draco_metadata_dec
+Consolidate compiler generated dependencies of target draco_metadata_enc
+[ 62%] Built target draco_metadata_enc
+Consolidate compiler generated dependencies of target draco_metadata
+[ 66%] Built target draco_metadata
+Consolidate compiler generated dependencies of target draco_animation_dec
+[ 67%] Built target draco_animation_dec
+Consolidate compiler generated dependencies of target draco_animation_enc
+[ 68%] Built target draco_animation_enc
+Consolidate compiler generated dependencies of target draco_animation
+[ 68%] Built target draco_animation
+Consolidate compiler generated dependencies of target draco_point_cloud
+[ 70%] Built target draco_point_cloud
+Consolidate compiler generated dependencies of target draco_points_dec
+[ 71%] Built target draco_points_dec
+Consolidate compiler generated dependencies of target draco_points_enc
+[ 73%] Built target draco_points_enc
+[ 74%] Built target draco_static
+Consolidate compiler generated dependencies of target draco_decoder
+[ 87%] Built target draco_decoder
+Consolidate compiler generated dependencies of target draco_encoder
+[100%] Built target draco_encoder
+Install the project...
+-- Install configuration: "Release"
+-- Installing: /usr/local/include/draco/attributes/attribute_octahedron_transform.h
+-- Installing: /usr/local/include/draco/attributes/attribute_quantization_transform.h
+-- Installing: /usr/local/include/draco/attributes/attribute_transform.h
+-- Installing: /usr/local/include/draco/attributes/attribute_transform_data.h
+-- Installing: /usr/local/include/draco/attributes/attribute_transform_type.h
+-- Installing: /usr/local/include/draco/attributes/geometry_attribute.h
+-- Installing: /usr/local/include/draco/attributes/geometry_indices.h
+-- Installing: /usr/local/include/draco/attributes/point_attribute.h
+-- Installing: /usr/local/include/draco/compression/attributes/attributes_decoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/attributes_decoder_interface.h
+-- Installing: /usr/local/include/draco/compression/attributes/kd_tree_attributes_decoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/kd_tree_attributes_shared.h
+-- Installing: /usr/local/include/draco/compression/attributes/mesh_attribute_indices_encoding_data.h
+-- Installing: /usr/local/include/draco/compression/attributes/normal_compression_utils.h
+-- Installing: /usr/local/include/draco/compression/attributes/point_d_vector.h
+-- Installing: /usr/local/include/draco/compression/attributes/sequential_attribute_decoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/sequential_attribute_decoders_controller.h
+-- Installing: /usr/local/include/draco/compression/attributes/sequential_integer_attribute_decoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/sequential_normal_attribute_decoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/sequential_quantization_attribute_decoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/attributes_encoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/kd_tree_attributes_encoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/linear_sequencer.h
+-- Installing: /usr/local/include/draco/compression/attributes/points_sequencer.h
+-- Installing: /usr/local/include/draco/compression/attributes/sequential_attribute_encoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/sequential_attribute_encoders_controller.h
+-- Installing: /usr/local/include/draco/compression/attributes/sequential_integer_attribute_encoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/sequential_normal_attribute_encoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/sequential_quantization_attribute_encoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/mesh_prediction_scheme_constrained_multi_parallelogram_decoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/mesh_prediction_scheme_constrained_multi_parallelogram_shared.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/mesh_prediction_scheme_data.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/mesh_prediction_scheme_decoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/mesh_prediction_scheme_geometric_normal_decoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/mesh_prediction_scheme_geometric_normal_predictor_area.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/mesh_prediction_scheme_geometric_normal_predictor_base.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/mesh_prediction_scheme_multi_parallelogram_decoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/mesh_prediction_scheme_parallelogram_encoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/mesh_prediction_scheme_parallelogram_shared.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/mesh_prediction_scheme_tex_coords_decoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/mesh_prediction_scheme_tex_coords_portable_decoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/mesh_prediction_scheme_tex_coords_portable_predictor.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_decoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_decoder_factory.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_decoder_interface.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_decoding_transform.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_delta_decoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_factory.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_interface.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_normal_octahedron_canonicalized_decoding_transform.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_normal_octahedron_canonicalized_transform_base.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_normal_octahedron_decoding_transform.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_normal_octahedron_transform_base.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_wrap_decoding_transform.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_wrap_transform_base.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/mesh_prediction_scheme_constrained_multi_parallelogram_encoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/mesh_prediction_scheme_encoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/mesh_prediction_scheme_geometric_normal_encoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/mesh_prediction_scheme_multi_parallelogram_encoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/mesh_prediction_scheme_tex_coords_encoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/mesh_prediction_scheme_tex_coords_portable_encoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_delta_encoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_encoder.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_encoder_factory.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_encoder_interface.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_encoding_transform.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_normal_octahedron_canonicalized_encoding_transform.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_normal_octahedron_encoding_transform.h
+-- Installing: /usr/local/include/draco/compression/attributes/prediction_schemes/prediction_scheme_wrap_encoding_transform.h
+-- Installing: /usr/local/include/draco/compression/bit_coders/adaptive_rans_bit_coding_shared.h
+-- Installing: /usr/local/include/draco/compression/bit_coders/adaptive_rans_bit_decoder.h
+-- Installing: /usr/local/include/draco/compression/bit_coders/adaptive_rans_bit_encoder.h
+-- Installing: /usr/local/include/draco/compression/bit_coders/direct_bit_decoder.h
+-- Installing: /usr/local/include/draco/compression/bit_coders/direct_bit_encoder.h
+-- Installing: /usr/local/include/draco/compression/bit_coders/folded_integer_bit_decoder.h
+-- Installing: /usr/local/include/draco/compression/bit_coders/folded_integer_bit_encoder.h
+-- Installing: /usr/local/include/draco/compression/bit_coders/rans_bit_decoder.h
+-- Installing: /usr/local/include/draco/compression/bit_coders/rans_bit_encoder.h
+-- Installing: /usr/local/include/draco/compression/bit_coders/symbol_bit_decoder.h
+-- Installing: /usr/local/include/draco/compression/bit_coders/symbol_bit_encoder.h
+-- Installing: /usr/local/include/draco/compression/config/compression_shared.h
+-- Installing: /usr/local/include/draco/compression/config/draco_options.h
+-- Installing: /usr/local/include/draco/compression/config/encoder_options.h
+-- Installing: /usr/local/include/draco/compression/config/encoding_features.h
+-- Installing: /usr/local/include/draco/compression/config/decoder_options.h
+-- Installing: /usr/local/include/draco/compression/decode.h
+-- Installing: /usr/local/include/draco/compression/encode.h
+-- Installing: /usr/local/include/draco/compression/encode_base.h
+-- Installing: /usr/local/include/draco/compression/expert_encode.h
+-- Installing: /usr/local/include/draco/compression/entropy/ans.h
+-- Installing: /usr/local/include/draco/compression/entropy/rans_symbol_coding.h
+-- Installing: /usr/local/include/draco/compression/entropy/rans_symbol_decoder.h
+-- Installing: /usr/local/include/draco/compression/entropy/rans_symbol_encoder.h
+-- Installing: /usr/local/include/draco/compression/entropy/shannon_entropy.h
+-- Installing: /usr/local/include/draco/compression/entropy/symbol_decoding.h
+-- Installing: /usr/local/include/draco/compression/entropy/symbol_encoding.h
+-- Installing: /usr/local/include/draco/compression/mesh/traverser/depth_first_traverser.h
+-- Installing: /usr/local/include/draco/compression/mesh/traverser/max_prediction_degree_traverser.h
+-- Installing: /usr/local/include/draco/compression/mesh/traverser/mesh_attribute_indices_encoding_observer.h
+-- Installing: /usr/local/include/draco/compression/mesh/traverser/mesh_traversal_sequencer.h
+-- Installing: /usr/local/include/draco/compression/mesh/traverser/traverser_base.h
+-- Installing: /usr/local/include/draco/compression/mesh/mesh_decoder.h
+-- Installing: /usr/local/include/draco/compression/mesh/mesh_edgebreaker_decoder.h
+-- Installing: /usr/local/include/draco/compression/mesh/mesh_edgebreaker_decoder_impl.h
+-- Installing: /usr/local/include/draco/compression/mesh/mesh_edgebreaker_decoder_impl_interface.h
+-- Installing: /usr/local/include/draco/compression/mesh/mesh_edgebreaker_shared.h
+-- Installing: /usr/local/include/draco/compression/mesh/mesh_edgebreaker_traversal_decoder.h
+-- Installing: /usr/local/include/draco/compression/mesh/mesh_edgebreaker_traversal_predictive_decoder.h
+-- Installing: /usr/local/include/draco/compression/mesh/mesh_edgebreaker_traversal_valence_decoder.h
+-- Installing: /usr/local/include/draco/compression/mesh/mesh_sequential_decoder.h
+-- Installing: /usr/local/include/draco/compression/mesh/mesh_edgebreaker_encoder.h
+-- Installing: /usr/local/include/draco/compression/mesh/mesh_edgebreaker_encoder_impl.h
+-- Installing: /usr/local/include/draco/compression/mesh/mesh_edgebreaker_encoder_impl_interface.h
+-- Installing: /usr/local/include/draco/compression/mesh/mesh_edgebreaker_traversal_encoder.h
+-- Installing: /usr/local/include/draco/compression/mesh/mesh_edgebreaker_traversal_predictive_encoder.h
+-- Installing: /usr/local/include/draco/compression/mesh/mesh_edgebreaker_traversal_valence_encoder.h
+-- Installing: /usr/local/include/draco/compression/mesh/mesh_encoder.h
+-- Installing: /usr/local/include/draco/compression/mesh/mesh_sequential_encoder.h
+-- Installing: /usr/local/include/draco/compression/draco_compression_options.h
+-- Installing: /usr/local/include/draco/compression/point_cloud/point_cloud_decoder.h
+-- Installing: /usr/local/include/draco/compression/point_cloud/point_cloud_kd_tree_decoder.h
+-- Installing: /usr/local/include/draco/compression/point_cloud/point_cloud_sequential_decoder.h
+-- Installing: /usr/local/include/draco/compression/point_cloud/point_cloud_encoder.h
+-- Installing: /usr/local/include/draco/compression/point_cloud/point_cloud_kd_tree_encoder.h
+-- Installing: /usr/local/include/draco/compression/point_cloud/point_cloud_sequential_encoder.h
+-- Installing: /usr/local/include/draco/core/bit_utils.h
+-- Installing: /usr/local/include/draco/core/bounding_box.h
+-- Installing: /usr/local/include/draco/core/constants.h
+-- Installing: /usr/local/include/draco/core/cycle_timer.h
+-- Installing: /usr/local/include/draco/core/data_buffer.h
+-- Installing: /usr/local/include/draco/core/decoder_buffer.h
+-- Installing: /usr/local/include/draco/core/divide.h
+-- Installing: /usr/local/include/draco/core/draco_index_type.h
+-- Installing: /usr/local/include/draco/core/draco_index_type_vector.h
+-- Installing: /usr/local/include/draco/core/draco_types.h
+-- Installing: /usr/local/include/draco/core/draco_version.h
+-- Installing: /usr/local/include/draco/core/encoder_buffer.h
+-- Installing: /usr/local/include/draco/core/hash_utils.h
+-- Installing: /usr/local/include/draco/core/macros.h
+-- Installing: /usr/local/include/draco/core/math_utils.h
+-- Installing: /usr/local/include/draco/core/options.h
+-- Installing: /usr/local/include/draco/core/quantization_utils.h
+-- Installing: /usr/local/include/draco/core/status.h
+-- Installing: /usr/local/include/draco/core/status_or.h
+-- Installing: /usr/local/include/draco/core/varint_decoding.h
+-- Installing: /usr/local/include/draco/core/varint_encoding.h
+-- Installing: /usr/local/include/draco/core/vector_d.h
+-- Installing: /usr/local/include/draco/io/file_reader_factory.h
+-- Installing: /usr/local/include/draco/io/file_reader_interface.h
+-- Installing: /usr/local/include/draco/io/file_utils.h
+-- Installing: /usr/local/include/draco/io/file_writer_factory.h
+-- Installing: /usr/local/include/draco/io/file_writer_interface.h
+-- Installing: /usr/local/include/draco/io/file_writer_utils.h
+-- Installing: /usr/local/include/draco/io/mesh_io.h
+-- Installing: /usr/local/include/draco/io/obj_decoder.h
+-- Installing: /usr/local/include/draco/io/obj_encoder.h
+-- Installing: /usr/local/include/draco/io/parser_utils.h
+-- Installing: /usr/local/include/draco/io/ply_decoder.h
+-- Installing: /usr/local/include/draco/io/ply_encoder.h
+-- Installing: /usr/local/include/draco/io/ply_property_reader.h
+-- Installing: /usr/local/include/draco/io/ply_property_writer.h
+-- Installing: /usr/local/include/draco/io/ply_reader.h
+-- Installing: /usr/local/include/draco/io/stl_decoder.h
+-- Installing: /usr/local/include/draco/io/stl_encoder.h
+-- Installing: /usr/local/include/draco/io/point_cloud_io.h
+-- Installing: /usr/local/include/draco/io/stdio_file_reader.h
+-- Installing: /usr/local/include/draco/io/stdio_file_writer.h
+-- Installing: /usr/local/include/draco/mesh/corner_table.h
+-- Installing: /usr/local/include/draco/mesh/corner_table_iterators.h
+-- Installing: /usr/local/include/draco/mesh/mesh.h
+-- Installing: /usr/local/include/draco/mesh/mesh_are_equivalent.h
+-- Installing: /usr/local/include/draco/mesh/mesh_attribute_corner_table.h
+-- Installing: /usr/local/include/draco/mesh/mesh_cleanup.h
+-- Installing: /usr/local/include/draco/mesh/mesh_features.h
+-- Installing: /usr/local/include/draco/mesh/mesh_indices.h
+-- Installing: /usr/local/include/draco/mesh/mesh_misc_functions.h
+-- Installing: /usr/local/include/draco/mesh/mesh_stripifier.h
+-- Installing: /usr/local/include/draco/mesh/triangle_soup_mesh_builder.h
+-- Installing: /usr/local/include/draco/mesh/valence_cache.h
+-- Installing: /usr/local/include/draco/metadata/metadata_decoder.h
+-- Installing: /usr/local/include/draco/metadata/metadata_encoder.h
+-- Installing: /usr/local/include/draco/metadata/geometry_metadata.h
+-- Installing: /usr/local/include/draco/metadata/metadata.h
+-- Installing: /usr/local/include/draco/metadata/property_attribute.h
+-- Installing: /usr/local/include/draco/metadata/property_table.h
+-- Installing: /usr/local/include/draco/metadata/structural_metadata.h
+-- Installing: /usr/local/include/draco/metadata/structural_metadata_schema.h
+-- Installing: /usr/local/include/draco/animation/keyframe_animation_decoder.h
+-- Installing: /usr/local/include/draco/animation/keyframe_animation_encoder.h
+-- Installing: /usr/local/include/draco/animation/keyframe_animation.h
+-- Installing: /usr/local/include/draco/point_cloud/point_cloud.h
+-- Installing: /usr/local/include/draco/point_cloud/point_cloud_builder.h
+-- Installing: /usr/local/include/draco/compression/point_cloud/algorithms/point_cloud_compression_method.h
+-- Installing: /usr/local/include/draco/compression/point_cloud/algorithms/point_cloud_types.h
+-- Installing: /usr/local/include/draco/compression/point_cloud/algorithms/quantize_points_3.h
+-- Installing: /usr/local/include/draco/compression/point_cloud/algorithms/queuing_policy.h
+-- Installing: /usr/local/include/draco/compression/point_cloud/algorithms/dynamic_integer_points_kd_tree_decoder.h
+-- Installing: /usr/local/include/draco/compression/point_cloud/algorithms/float_points_tree_decoder.h
+-- Installing: /usr/local/include/draco/compression/point_cloud/algorithms/dynamic_integer_points_kd_tree_encoder.h
+-- Installing: /usr/local/include/draco/compression/point_cloud/algorithms/float_points_tree_encoder.h
+-- Installing: /usr/local/include/draco/draco_features.h
+-- Installing: /usr/local/bin/draco_decoder-1.5.7
+-- Installing: /usr/local/bin/draco_decoder
+-- Installing: /usr/local/bin/draco_encoder-1.5.7
+-- Installing: /usr/local/bin/draco_encoder
+-- Installing: /usr/local/lib/libdraco.a
+-- Installing: /usr/local/lib/pkgconfig/draco.pc
+-- Installing: /usr/local/share/cmake/draco/draco-targets.cmake
+-- Installing: /usr/local/share/cmake/draco/draco-targets-release.cmake
+-- Installing: /usr/local/share/cmake/draco/draco-config.cmake
+-- Installing: /usr/local/share/cmake/draco/draco-config-version.cmake
+
+=> Step 3: RUN rm -rf /tmp/draco
+Saving image...
+Image saved, took 2.16s
+
+Built image im-sMdOlbnp0XD3P9HKksTslP in 55.21s
+
+
+Building image im-qKSq7bwQYB9zAhxiylzfub
+
+=> Step 0: FROM base
+
+=> Step 1: RUN python -m pip install 'fastapi[standard]' gradio==5.49.1
+Looking in indexes: http://pypi-mirror.modal.local:5555/simple
+Collecting fastapi[standard]
+  Obtaining dependency information for fastapi[standard] from http://pypi-mirror.modal.local:5555/simple/fastapi/fastapi-0.138.1-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/fastapi/fastapi-0.138.1-py3-none-any.whl.metadata (27 kB)
+Collecting gradio==5.49.1
+  Obtaining dependency information for gradio==5.49.1 from http://pypi-mirror.modal.local:5555/simple/gradio/gradio-5.49.1-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/gradio/gradio-5.49.1-py3-none-any.whl.metadata (16 kB)
+Collecting aiofiles<25.0,>=22.0 (from gradio==5.49.1)
+  Obtaining dependency information for aiofiles<25.0,>=22.0 from http://pypi-mirror.modal.local:5555/simple/aiofiles/aiofiles-24.1.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/aiofiles/aiofiles-24.1.0-py3-none-any.whl.metadata (10 kB)
+Collecting anyio<5.0,>=3.0 (from gradio==5.49.1)
+  Obtaining dependency information for anyio<5.0,>=3.0 from http://pypi-mirror.modal.local:5555/simple/anyio/anyio-4.14.1-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/anyio/anyio-4.14.1-py3-none-any.whl.metadata (4.6 kB)
+Collecting brotli>=1.1.0 (from gradio==5.49.1)
+  Obtaining dependency information for brotli>=1.1.0 from http://pypi-mirror.modal.local:5555/simple/brotli/brotli-1.2.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/brotli/brotli-1.2.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (6.1 kB)
+Collecting ffmpy (from gradio==5.49.1)
+  Obtaining dependency information for ffmpy from http://pypi-mirror.modal.local:5555/simple/ffmpy/ffmpy-1.0.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/ffmpy/ffmpy-1.0.0-py3-none-any.whl.metadata (3.0 kB)
+Collecting gradio-client==1.13.3 (from gradio==5.49.1)
+  Obtaining dependency information for gradio-client==1.13.3 from http://pypi-mirror.modal.local:5555/simple/gradio-client/gradio_client-1.13.3-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/gradio-client/gradio_client-1.13.3-py3-none-any.whl.metadata (7.1 kB)
+Collecting groovy~=0.1 (from gradio==5.49.1)
+  Obtaining dependency information for groovy~=0.1 from http://pypi-mirror.modal.local:5555/simple/groovy/groovy-0.1.2-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/groovy/groovy-0.1.2-py3-none-any.whl.metadata (6.1 kB)
+Collecting httpx<1.0,>=0.24.1 (from gradio==5.49.1)
+  Obtaining dependency information for httpx<1.0,>=0.24.1 from http://pypi-mirror.modal.local:5555/simple/httpx/httpx-0.28.1-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/httpx/httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+Collecting huggingface-hub<2.0,>=0.33.5 (from gradio==5.49.1)
+  Obtaining dependency information for huggingface-hub<2.0,>=0.33.5 from http://pypi-mirror.modal.local:5555/simple/huggingface-hub/huggingface_hub-1.21.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/huggingface-hub/huggingface_hub-1.21.0-py3-none-any.whl.metadata (14 kB)
+Requirement already satisfied: jinja2<4.0 in /usr/local/lib/python3.10/site-packages (from gradio==5.49.1) (3.1.6)
+Requirement already satisfied: markupsafe<4.0,>=2.0 in /usr/local/lib/python3.10/site-packages (from gradio==5.49.1) (3.0.3)
+Requirement already satisfied: numpy<3.0,>=1.0 in /usr/local/lib/python3.10/site-packages (from gradio==5.49.1) (2.2.6)
+Collecting orjson~=3.0 (from gradio==5.49.1)
+  Obtaining dependency information for orjson~=3.0 from http://pypi-mirror.modal.local:5555/simple/orjson/orjson-3.11.9-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/orjson/orjson-3.11.9-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (41 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 42.0/42.0 kB 29.2 MB/s eta 0:00:00
+Requirement already satisfied: packaging in /usr/local/lib/python3.10/site-packages (from gradio==5.49.1) (26.2)
+Collecting pandas<3.0,>=1.0 (from gradio==5.49.1)
+  Obtaining dependency information for pandas<3.0,>=1.0 from http://pypi-mirror.modal.local:5555/simple/pandas/pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pandas/pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (91 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 91.2/91.2 kB 5.5 MB/s eta 0:00:00
+Collecting pillow<12.0,>=8.0 (from gradio==5.49.1)
+  Obtaining dependency information for pillow<12.0,>=8.0 from http://pypi-mirror.modal.local:5555/simple/pillow/pillow-11.3.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pillow/pillow-11.3.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.0 kB)
+Collecting pydantic<2.12,>=2.0 (from gradio==5.49.1)
+  Obtaining dependency information for pydantic<2.12,>=2.0 from http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.11.10-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.11.10-py3-none-any.whl.metadata (68 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 68.6/68.6 kB 42.5 MB/s eta 0:00:00
+Collecting pydub (from gradio==5.49.1)
+  Obtaining dependency information for pydub from http://pypi-mirror.modal.local:5555/simple/pydub/pydub-0.25.1-py2.py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pydub/pydub-0.25.1-py2.py3-none-any.whl.metadata (1.4 kB)
+Collecting python-multipart>=0.0.18 (from gradio==5.49.1)
+  Obtaining dependency information for python-multipart>=0.0.18 from http://pypi-mirror.modal.local:5555/simple/python-multipart/python_multipart-0.0.32-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/python-multipart/python_multipart-0.0.32-py3-none-any.whl.metadata (2.1 kB)
+Requirement already satisfied: pyyaml<7.0,>=5.0 in /usr/local/lib/python3.10/site-packages (from gradio==5.49.1) (6.0.3)
+Collecting ruff>=0.9.3 (from gradio==5.49.1)
+  Obtaining dependency information for ruff>=0.9.3 from http://pypi-mirror.modal.local:5555/simple/ruff/ruff-0.15.20-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/ruff/ruff-0.15.20-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (26 kB)
+Collecting safehttpx<0.2.0,>=0.1.6 (from gradio==5.49.1)
+  Obtaining dependency information for safehttpx<0.2.0,>=0.1.6 from http://pypi-mirror.modal.local:5555/simple/safehttpx/safehttpx-0.1.7-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/safehttpx/safehttpx-0.1.7-py3-none-any.whl.metadata (4.2 kB)
+Collecting semantic-version~=2.0 (from gradio==5.49.1)
+  Obtaining dependency information for semantic-version~=2.0 from http://pypi-mirror.modal.local:5555/simple/semantic-version/semantic_version-2.10.0-py2.py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/semantic-version/semantic_version-2.10.0-py2.py3-none-any.whl.metadata (9.7 kB)
+Collecting starlette<1.0,>=0.40.0 (from gradio==5.49.1)
+  Obtaining dependency information for starlette<1.0,>=0.40.0 from http://pypi-mirror.modal.local:5555/simple/starlette/starlette-0.52.1-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/starlette/starlette-0.52.1-py3-none-any.whl.metadata (6.3 kB)
+Collecting tomlkit<0.14.0,>=0.12.0 (from gradio==5.49.1)
+  Obtaining dependency information for tomlkit<0.14.0,>=0.12.0 from http://pypi-mirror.modal.local:5555/simple/tomlkit/tomlkit-0.13.3-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/tomlkit/tomlkit-0.13.3-py3-none-any.whl.metadata (2.8 kB)
+Collecting typer<1.0,>=0.12 (from gradio==5.49.1)
+  Obtaining dependency information for typer<1.0,>=0.12 from http://pypi-mirror.modal.local:5555/simple/typer/typer-0.26.8-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/typer/typer-0.26.8-py3-none-any.whl.metadata (15 kB)
+Requirement already satisfied: typing-extensions~=4.0 in /usr/local/lib/python3.10/site-packages (from gradio==5.49.1) (4.15.0)
+Collecting uvicorn>=0.14.0 (from gradio==5.49.1)
+  Obtaining dependency information for uvicorn>=0.14.0 from http://pypi-mirror.modal.local:5555/simple/uvicorn/uvicorn-0.49.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/uvicorn/uvicorn-0.49.0-py3-none-any.whl.metadata (6.7 kB)
+Requirement already satisfied: fsspec in /usr/local/lib/python3.10/site-packages (from gradio-client==1.13.3->gradio==5.49.1) (2026.4.0)
+Collecting websockets<16.0,>=13.0 (from gradio-client==1.13.3->gradio==5.49.1)
+  Obtaining dependency information for websockets<16.0,>=13.0 from http://pypi-mirror.modal.local:5555/simple/websockets/websockets-15.0.1-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/websockets/websockets-15.0.1-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+Collecting typing-inspection>=0.4.2 (from fastapi[standard])
+  Obtaining dependency information for typing-inspection>=0.4.2 from http://pypi-mirror.modal.local:5555/simple/typing-inspection/typing_inspection-0.4.2-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/typing-inspection/typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+Collecting annotated-doc>=0.0.2 (from fastapi[standard])
+  Obtaining dependency information for annotated-doc>=0.0.2 from http://pypi-mirror.modal.local:5555/simple/annotated-doc/annotated_doc-0.0.4-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/annotated-doc/annotated_doc-0.0.4-py3-none-any.whl.metadata (6.6 kB)
+Collecting fastapi-cli[standard]>=0.0.8 (from fastapi[standard])
+  Obtaining dependency information for fastapi-cli[standard]>=0.0.8 from http://pypi-mirror.modal.local:5555/simple/fastapi-cli/fastapi_cli-0.0.27-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/fastapi-cli/fastapi_cli-0.0.27-py3-none-any.whl.metadata (6.4 kB)
+Collecting fastar>=0.9.0 (from fastapi[standard])
+  Obtaining dependency information for fastar>=0.9.0 from http://pypi-mirror.modal.local:5555/simple/fastar/fastar-0.11.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/fastar/fastar-0.11.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.0 kB)
+Collecting email-validator>=2.0.0 (from fastapi[standard])
+  Obtaining dependency information for email-validator>=2.0.0 from http://pypi-mirror.modal.local:5555/simple/email-validator/email_validator-2.3.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/email-validator/email_validator-2.3.0-py3-none-any.whl.metadata (26 kB)
+Collecting pydantic-settings>=2.0.0 (from fastapi[standard])
+  Obtaining dependency information for pydantic-settings>=2.0.0 from http://pypi-mirror.modal.local:5555/simple/pydantic-settings/pydantic_settings-2.14.2-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pydantic-settings/pydantic_settings-2.14.2-py3-none-any.whl.metadata (3.4 kB)
+Collecting pydantic-extra-types>=2.0.0 (from fastapi[standard])
+  Obtaining dependency information for pydantic-extra-types>=2.0.0 from http://pypi-mirror.modal.local:5555/simple/pydantic-extra-types/pydantic_extra_types-2.11.1-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pydantic-extra-types/pydantic_extra_types-2.11.1-py3-none-any.whl.metadata (4.2 kB)
+Collecting exceptiongroup>=1.0.2 (from anyio<5.0,>=3.0->gradio==5.49.1)
+  Obtaining dependency information for exceptiongroup>=1.0.2 from http://pypi-mirror.modal.local:5555/simple/exceptiongroup/exceptiongroup-1.3.1-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/exceptiongroup/exceptiongroup-1.3.1-py3-none-any.whl.metadata (6.7 kB)
+Requirement already satisfied: idna>=2.8 in /usr/local/lib/python3.10/site-packages (from anyio<5.0,>=3.0->gradio==5.49.1) (3.18)
+Collecting dnspython>=2.0.0 (from email-validator>=2.0.0->fastapi[standard])
+  Obtaining dependency information for dnspython>=2.0.0 from http://pypi-mirror.modal.local:5555/simple/dnspython/dnspython-2.8.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/dnspython/dnspython-2.8.0-py3-none-any.whl.metadata (5.7 kB)
+Collecting rich-toolkit>=0.14.8 (from fastapi-cli[standard]>=0.0.8->fastapi[standard])
+  Obtaining dependency information for rich-toolkit>=0.14.8 from http://pypi-mirror.modal.local:5555/simple/rich-toolkit/rich_toolkit-0.20.1-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/rich-toolkit/rich_toolkit-0.20.1-py3-none-any.whl.metadata (1.0 kB)
+Requirement already satisfied: tomli>=2.0.0 in /usr/local/lib/python3.10/site-packages (from fastapi-cli[standard]>=0.0.8->fastapi[standard]) (2.4.1)
+Collecting fastapi-cloud-cli>=0.1.1 (from fastapi-cli[standard]>=0.0.8->fastapi[standard])
+  Obtaining dependency information for fastapi-cloud-cli>=0.1.1 from http://pypi-mirror.modal.local:5555/simple/fastapi-cloud-cli/fastapi_cloud_cli-0.21.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/fastapi-cloud-cli/fastapi_cloud_cli-0.21.0-py3-none-any.whl.metadata (3.1 kB)
+Requirement already satisfied: certifi in /usr/local/lib/python3.10/site-packages (from httpx<1.0,>=0.24.1->gradio==5.49.1) (2026.6.17)
+Collecting httpcore==1.* (from httpx<1.0,>=0.24.1->gradio==5.49.1)
+  Obtaining dependency information for httpcore==1.* from http://pypi-mirror.modal.local:5555/simple/httpcore/httpcore-1.0.9-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/httpcore/httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0,>=0.24.1->gradio==5.49.1)
+  Obtaining dependency information for h11>=0.16 from http://pypi-mirror.modal.local:5555/simple/h11/h11-0.16.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/h11/h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Collecting click>=8.4.0 (from huggingface-hub<2.0,>=0.33.5->gradio==5.49.1)
+  Obtaining dependency information for click>=8.4.0 from http://pypi-mirror.modal.local:5555/simple/click/click-8.4.2-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/click/click-8.4.2-py3-none-any.whl.metadata (2.6 kB)
+Requirement already satisfied: filelock>=3.10.0 in /usr/local/lib/python3.10/site-packages (from huggingface-hub<2.0,>=0.33.5->gradio==5.49.1) (3.29.0)
+Collecting hf-xet<2.0.0,>=1.5.1 (from huggingface-hub<2.0,>=0.33.5->gradio==5.49.1)
+  Obtaining dependency information for hf-xet<2.0.0,>=1.5.1 from http://pypi-mirror.modal.local:5555/simple/hf-xet/hf_xet-1.5.1-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/hf-xet/hf_xet-1.5.1-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+Requirement already satisfied: tqdm>=4.42.1 in /usr/local/lib/python3.10/site-packages (from huggingface-hub<2.0,>=0.33.5->gradio==5.49.1) (4.68.3)
+Collecting typer<1.0,>=0.12 (from gradio==5.49.1)
+  Obtaining dependency information for typer<1.0,>=0.12 from http://pypi-mirror.modal.local:5555/simple/typer/typer-0.25.1-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/typer/typer-0.25.1-py3-none-any.whl.metadata (15 kB)
+Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.10/site-packages (from pandas<3.0,>=1.0->gradio==5.49.1) (2.9.0.post0)
+Collecting pytz>=2020.1 (from pandas<3.0,>=1.0->gradio==5.49.1)
+  Obtaining dependency information for pytz>=2020.1 from http://pypi-mirror.modal.local:5555/simple/pytz/pytz-2026.2-py2.py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pytz/pytz-2026.2-py2.py3-none-any.whl.metadata (22 kB)
+Collecting tzdata>=2022.7 (from pandas<3.0,>=1.0->gradio==5.49.1)
+  Obtaining dependency information for tzdata>=2022.7 from http://pypi-mirror.modal.local:5555/simple/tzdata/tzdata-2026.2-py2.py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/tzdata/tzdata-2026.2-py2.py3-none-any.whl.metadata (1.4 kB)
+Collecting annotated-types>=0.6.0 (from pydantic<2.12,>=2.0->gradio==5.49.1)
+  Obtaining dependency information for annotated-types>=0.6.0 from http://pypi-mirror.modal.local:5555/simple/annotated-types/annotated_types-0.7.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/annotated-types/annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+Collecting pydantic-core==2.33.2 (from pydantic<2.12,>=2.0->gradio==5.49.1)
+  Obtaining dependency information for pydantic-core==2.33.2 from http://pypi-mirror.modal.local:5555/simple/pydantic-core/pydantic_core-2.33.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pydantic-core/pydantic_core-2.33.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+Collecting python-dotenv>=0.21.0 (from pydantic-settings>=2.0.0->fastapi[standard])
+  Obtaining dependency information for python-dotenv>=0.21.0 from http://pypi-mirror.modal.local:5555/simple/python-dotenv/python_dotenv-1.2.2-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/python-dotenv/python_dotenv-1.2.2-py3-none-any.whl.metadata (27 kB)
+Collecting shellingham>=1.3.0 (from typer<1.0,>=0.12->gradio==5.49.1)
+  Obtaining dependency information for shellingham>=1.3.0 from http://pypi-mirror.modal.local:5555/simple/shellingham/shellingham-1.5.4-py2.py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/shellingham/shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+Collecting rich>=13.8.0 (from typer<1.0,>=0.12->gradio==5.49.1)
+  Obtaining dependency information for rich>=13.8.0 from http://pypi-mirror.modal.local:5555/simple/rich/rich-15.0.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/rich/rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+Collecting httptools>=0.8.0 (from uvicorn>=0.14.0->gradio==5.49.1)
+  Obtaining dependency information for httptools>=0.8.0 from http://pypi-mirror.modal.local:5555/simple/httptools/httptools-0.8.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/httptools/httptools-0.8.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (3.5 kB)
+Collecting uvloop>=0.15.1 (from uvicorn>=0.14.0->gradio==5.49.1)
+  Obtaining dependency information for uvloop>=0.15.1 from http://pypi-mirror.modal.local:5555/simple/uvloop/uvloop-0.22.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/uvloop/uvloop-0.22.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (4.9 kB)
+Collecting watchfiles>=0.20 (from uvicorn>=0.14.0->gradio==5.49.1)
+  Obtaining dependency information for watchfiles>=0.20 from http://pypi-mirror.modal.local:5555/simple/watchfiles/watchfiles-1.2.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/watchfiles/watchfiles-1.2.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+Collecting rignore>=0.5.1 (from fastapi-cloud-cli>=0.1.1->fastapi-cli[standard]>=0.0.8->fastapi[standard])
+  Obtaining dependency information for rignore>=0.5.1 from http://pypi-mirror.modal.local:5555/simple/rignore/rignore-0.7.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/rignore/rignore-0.7.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.2 kB)
+Collecting pydantic[email]>=2.7.4 (from fastapi-cloud-cli>=0.1.1->fastapi-cli[standard]>=0.0.8->fastapi[standard])
+  Obtaining dependency information for pydantic[email]>=2.7.4 from http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.13.4-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.13.4-py3-none-any.whl.metadata (109 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 109.4/109.4 kB 159.4 MB/s eta 0:00:00
+Collecting sentry-sdk>=2.20.0 (from fastapi-cloud-cli>=0.1.1->fastapi-cli[standard]>=0.0.8->fastapi[standard])
+  Obtaining dependency information for sentry-sdk>=2.20.0 from http://pypi-mirror.modal.local:5555/simple/sentry-sdk/sentry_sdk-2.63.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/sentry-sdk/sentry_sdk-2.63.0-py3-none-any.whl.metadata (10 kB)
+Collecting detect-installer>=0.1.0 (from fastapi-cloud-cli>=0.1.1->fastapi-cli[standard]>=0.0.8->fastapi[standard])
+  Obtaining dependency information for detect-installer>=0.1.0 from http://pypi-mirror.modal.local:5555/simple/detect-installer/detect_installer-0.1.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/detect-installer/detect_installer-0.1.0-py3-none-any.whl.metadata (1.2 kB)
+Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.10/site-packages (from python-dateutil>=2.8.2->pandas<3.0,>=1.0->gradio==5.49.1) (1.17.0)
+Collecting markdown-it-py>=2.2.0 (from rich>=13.8.0->typer<1.0,>=0.12->gradio==5.49.1)
+  Obtaining dependency information for markdown-it-py>=2.2.0 from http://pypi-mirror.modal.local:5555/simple/markdown-it-py/markdown_it_py-4.2.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/markdown-it-py/markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+Collecting pygments<3.0.0,>=2.13.0 (from rich>=13.8.0->typer<1.0,>=0.12->gradio==5.49.1)
+  Obtaining dependency information for pygments<3.0.0,>=2.13.0 from http://pypi-mirror.modal.local:5555/simple/pygments/pygments-2.20.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pygments/pygments-2.20.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=13.8.0->typer<1.0,>=0.12->gradio==5.49.1)
+  Obtaining dependency information for mdurl~=0.1 from http://pypi-mirror.modal.local:5555/simple/mdurl/mdurl-0.1.2-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/mdurl/mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+INFO: pip is looking at multiple versions of pydantic[email] to determine which version is compatible with other requirements. This could take a while.
+Collecting pydantic[email]>=2.7.4 (from fastapi-cloud-cli>=0.1.1->fastapi-cli[standard]>=0.0.8->fastapi[standard])
+  Obtaining dependency information for pydantic[email]>=2.7.4 from http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.13.3-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.13.3-py3-none-any.whl.metadata (108 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 108.8/108.8 kB 50.6 MB/s eta 0:00:00
+  Obtaining dependency information for pydantic[email]>=2.7.4 from http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.13.2-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.13.2-py3-none-any.whl.metadata (108 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 108.5/108.5 kB 38.4 MB/s eta 0:00:00
+  Obtaining dependency information for pydantic[email]>=2.7.4 from http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.13.1-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.13.1-py3-none-any.whl.metadata (108 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 108.2/108.2 kB 44.3 MB/s eta 0:00:00
+  Obtaining dependency information for pydantic[email]>=2.7.4 from http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.13.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.13.0-py3-none-any.whl.metadata (107 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 107.9/107.9 kB 42.0 MB/s eta 0:00:00
+  Obtaining dependency information for pydantic[email]>=2.7.4 from http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.12.5-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 90.6/90.6 kB 33.1 MB/s eta 0:00:00
+  Obtaining dependency information for pydantic[email]>=2.7.4 from http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.12.4-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.12.4-py3-none-any.whl.metadata (89 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 89.9/89.9 kB 70.0 MB/s eta 0:00:00
+  Obtaining dependency information for pydantic[email]>=2.7.4 from http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.12.3-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.12.3-py3-none-any.whl.metadata (87 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 87.7/87.7 kB 76.5 MB/s eta 0:00:00
+INFO: pip is still looking at multiple versions of pydantic[email] to determine which version is compatible with other requirements. This could take a while.
+  Obtaining dependency information for pydantic[email]>=2.7.4 from http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.12.2-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.12.2-py3-none-any.whl.metadata (85 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 85.8/85.8 kB 38.7 MB/s eta 0:00:00
+  Obtaining dependency information for pydantic[email]>=2.7.4 from http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.12.0-py3-none-any.whl.metadata
+  Downloading http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.12.0-py3-none-any.whl.metadata (83 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 83.4/83.4 kB 40.6 MB/s eta 0:00:00
+Requirement already satisfied: urllib3>=1.26.11 in /usr/local/lib/python3.10/site-packages (from sentry-sdk>=2.20.0->fastapi-cloud-cli>=0.1.1->fastapi-cli[standard]>=0.0.8->fastapi[standard]) (2.7.0)
+Downloading http://pypi-mirror.modal.local:5555/simple/gradio/gradio-5.49.1-py3-none-any.whl (63.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 63.5/63.5 MB 88.1 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/gradio-client/gradio_client-1.13.3-py3-none-any.whl (325 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 325.4/325.4 kB 168.4 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/aiofiles/aiofiles-24.1.0-py3-none-any.whl (15 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/annotated-doc/annotated_doc-0.0.4-py3-none-any.whl (5.3 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/anyio/anyio-4.14.1-py3-none-any.whl (124 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 124.9/124.9 kB 161.6 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/brotli/brotli-1.2.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 168.7 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/email-validator/email_validator-2.3.0-py3-none-any.whl (35 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/fastapi/fastapi-0.138.1-py3-none-any.whl (129 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 129.2/129.2 kB 158.9 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/fastar/fastar-0.11.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (823 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 823.0/823.0 kB 171.3 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/groovy/groovy-0.1.2-py3-none-any.whl (14 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/httpx/httpx-0.28.1-py3-none-any.whl (73 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 73.5/73.5 kB 150.0 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/httpcore/httpcore-1.0.9-py3-none-any.whl (78 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.8/78.8 kB 145.7 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/huggingface-hub/huggingface_hub-1.21.0-py3-none-any.whl (721 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 721.1/721.1 kB 165.0 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/orjson/orjson-3.11.9-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (134 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 134.2/134.2 kB 162.1 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/pandas/pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.8/12.8 MB 84.7 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/pillow/pillow-11.3.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.6/6.6 MB 111.3 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/pydantic/pydantic-2.11.10-py3-none-any.whl (444 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 444.8/444.8 kB 168.3 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/pydantic-core/pydantic_core-2.33.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 170.7 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/pydantic-extra-types/pydantic_extra_types-2.11.1-py3-none-any.whl (79 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 79.5/79.5 kB 153.2 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/pydantic-settings/pydantic_settings-2.14.2-py3-none-any.whl (61 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.7/61.7 kB 152.6 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/python-multipart/python_multipart-0.0.32-py3-none-any.whl (30 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/ruff/ruff-0.15.20-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (11.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.5/11.5 MB 154.3 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/safehttpx/safehttpx-0.1.7-py3-none-any.whl (9.0 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/semantic-version/semantic_version-2.10.0-py2.py3-none-any.whl (15 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/starlette/starlette-0.52.1-py3-none-any.whl (74 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 74.3/74.3 kB 162.0 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/tomlkit/tomlkit-0.13.3-py3-none-any.whl (38 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/typer/typer-0.25.1-py3-none-any.whl (58 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.4/58.4 kB 136.3 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/typing-inspection/typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/uvicorn/uvicorn-0.49.0-py3-none-any.whl (71 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 71.4/71.4 kB 164.5 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/ffmpy/ffmpy-1.0.0-py3-none-any.whl (5.6 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pydub/pydub-0.25.1-py2.py3-none-any.whl (32 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/annotated-types/annotated_types-0.7.0-py3-none-any.whl (13 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/click/click-8.4.2-py3-none-any.whl (119 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 119.2/119.2 kB 160.0 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/dnspython/dnspython-2.8.0-py3-none-any.whl (331 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 331.1/331.1 kB 171.0 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/exceptiongroup/exceptiongroup-1.3.1-py3-none-any.whl (16 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/fastapi-cloud-cli/fastapi_cloud_cli-0.21.0-py3-none-any.whl (76 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 76.2/76.2 kB 154.8 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/h11/h11-0.16.0-py3-none-any.whl (37 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/hf-xet/hf_xet-1.5.1-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 164.3 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/httptools/httptools-0.8.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (450 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 450.0/450.0 kB 175.0 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/python-dotenv/python_dotenv-1.2.2-py3-none-any.whl (22 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pytz/pytz-2026.2-py2.py3-none-any.whl (510 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 510.1/510.1 kB 170.2 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/rich/rich-15.0.0-py3-none-any.whl (310 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 310.7/310.7 kB 163.2 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/rich-toolkit/rich_toolkit-0.20.1-py3-none-any.whl (35 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/shellingham/shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/tzdata/tzdata-2026.2-py2.py3-none-any.whl (349 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 349.3/349.3 kB 172.6 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/uvloop/uvloop-0.22.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (3.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.7/3.7 MB 136.2 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/watchfiles/watchfiles-1.2.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (457 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 457.1/457.1 kB 173.2 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/websockets/websockets-15.0.1-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (181 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 181.6/181.6 kB 165.4 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/fastapi-cli/fastapi_cli-0.0.27-py3-none-any.whl (13 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/detect-installer/detect_installer-0.1.0-py3-none-any.whl (4.5 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/markdown-it-py/markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 91.7/91.7 kB 159.0 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/pygments/pygments-2.20.0-py3-none-any.whl (1.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 173.2 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/rignore/rignore-0.7.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (959 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 959.8/959.8 kB 170.8 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/sentry-sdk/sentry_sdk-2.63.0-py3-none-any.whl (495 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 495.9/495.9 kB 150.8 MB/s eta 0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/mdurl/mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Installing collected packages: pytz, pydub, brotli, websockets, uvloop, tzdata, typing-inspection, tomlkit, shellingham, sentry-sdk, semantic-version, ruff, rignore, python-multipart, python-dotenv, pygments, pydantic-core, pillow, orjson, mdurl, httptools, hf-xet, h11, groovy, ffmpy, fastar, exceptiongroup, dnspython, detect-installer, click, annotated-types, annotated-doc, aiofiles, uvicorn, pydantic, pandas, markdown-it-py, httpcore, email-validator, anyio, watchfiles, starlette, rich, pydantic-settings, pydantic-extra-types, httpx, typer, safehttpx, rich-toolkit, fastapi, huggingface-hub, fastapi-cloud-cli, fastapi-cli, gradio-client, gradio
+  Attempting uninstall: pillow
+    Found existing installation: pillow 12.2.0
+    Uninstalling pillow-12.2.0:
+      Successfully uninstalled pillow-12.2.0
+Successfully installed aiofiles-24.1.0 annotated-doc-0.0.4 annotated-types-0.7.0 anyio-4.14.1 brotli-1.2.0 click-8.4.2 detect-installer-0.1.0 dnspython-2.8.0 email-validator-2.3.0 exceptiongroup-1.3.1 fastapi-0.138.1 fastapi-cli-0.0.27 fastapi-cloud-cli-0.21.0 fastar-0.11.0 ffmpy-1.0.0 gradio-5.49.1 gradio-client-1.13.3 groovy-0.1.2 h11-0.16.0 hf-xet-1.5.1 httpcore-1.0.9 httptools-0.8.0 httpx-0.28.1 huggingface-hub-1.21.0 markdown-it-py-4.2.0 mdurl-0.1.2 orjson-3.11.9 pandas-2.3.3 pillow-11.3.0 pydantic-2.11.10 pydantic-core-2.33.2 pydantic-extra-types-2.11.1 pydantic-settings-2.14.2 pydub-0.25.1 pygments-2.20.0 python-dotenv-1.2.2 python-multipart-0.0.32 pytz-2026.2 rich-15.0.0 rich-toolkit-0.20.1 rignore-0.7.6 ruff-0.15.20 safehttpx-0.1.7 semantic-version-2.10.0 sentry-sdk-2.63.0 shellingham-1.5.4 starlette-0.52.1 tomlkit-0.13.3 typer-0.25.1 typing-inspection-0.4.2 tzdata-2026.2 uvicorn-0.49.0 uvloop-0.22.1 watchfiles-1.2.0 websockets-15.0.1
+
+[notice] A new release of pip is available: 23.2.1 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+Saving image...
+Image saved, took 2.63s
+
+Built image im-qKSq7bwQYB9zAhxiylzfub in 30.68s
+
+
+Building image im-a6uKrJotgLsRGDhfvSXMhy
+
+=> Step 0: FROM base
+
+=> Step 1: ENV PYTHONPATH=/app/HunyuanWorld-1.0
+
+=> Step 2: ENV HF_HOME=/hf_cache
+
+=> Step 3: ENV ESRGAN_PATH=/app/Real-ESRGAN
+
+=> Step 4: ENV ZIM_PATH=/app/ZIM
+Saving image...
+Image saved, took 1.03s
+
+Built image im-a6uKrJotgLsRGDhfvSXMhy in 3.13s
+
+
+✓ Created objects.
+├── 🔨 Created mount C:\Users\psi20\OneDrive\Documents\MODAL\world10_modal.py
+└── 🔨 Created web function ui => 
+    https://multinodaltrx--hunyuan-world10-ui.modal.run
+✓ App deployed in 438.610s! 🎉
+
+View Deployment: 
+https://modal.com/apps/multinodaltrx/main/deployed/hunyuan-world10

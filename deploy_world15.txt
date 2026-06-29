@@ -1,0 +1,51 @@
+┌───────────────────── Traceback (most recent call last) ─────────────────────┐
+│ C:\Users\psi20\AppData\Local\Programs\Python\Python310\lib\site-packages\mo │
+│ dal\_utils\function_utils.py:636 in parse_gpu_config                        │
+│                                                                             │
+│   635 │   │   │   try:                                                      │
+│ > 636 │   │   │   │   count = int(count_str)                                │
+│   637 │   │   │   except ValueError:                                        │
+└─────────────────────────────────────────────────────────────────────────────┘
+ValueError: invalid literal for int() with base 10: '80GB'
+
+During handling of the above exception, another exception occurred:
+
+┌───────────────────── Traceback (most recent call last) ─────────────────────┐
+│ C:\Users\psi20\OneDrive\Documents\MODAL\world15_modal.py:154 in <module>    │
+│                                                                             │
+│   153 @modal.asgi_app()                                                     │
+│ > 154 def ui():                                                             │
+│   155 │   import sys, os, subprocess, tempfile, shutil                      │
+│                                                                             │
+│ C:\Users\psi20\AppData\Local\Programs\Python\Python310\lib\site-packages\sy │
+│ nchronicity\synchronizer.py:758 in f_wrapped                                │
+│                                                                             │
+│ C:\Users\psi20\AppData\Local\Programs\Python\Python310\lib\site-packages\mo │
+│ dal\app.py:982 in wrapped                                                   │
+│                                                                             │
+│    981 │   │   │                                                            │
+│ >  982 │   │   │   function = _Function.from_local(                         │
+│    983 │   │   │   │   info,                                                │
+│                                                                             │
+│ C:\Users\psi20\AppData\Local\Programs\Python\Python310\lib\site-packages\mo │
+│ dal\_functions.py:1144 in from_local                                        │
+│                                                                             │
+│   1143 │   │   │   secrets=repr(secrets),                                   │
+│ > 1144 │   │   │   gpu_config=repr([parse_gpu_config(_gpu) for _gpu in gpus │
+│   1145 │   │   │   network_file_systems=repr(network_file_systems),         │
+│                                                                             │
+│ C:\Users\psi20\AppData\Local\Programs\Python\Python310\lib\site-packages\mo │
+│ dal\_functions.py:1144 in <listcomp>                                        │
+│                                                                             │
+│   1143 │   │   │   secrets=repr(secrets),                                   │
+│ > 1144 │   │   │   gpu_config=repr([parse_gpu_config(_gpu) for _gpu in gpus │
+│   1145 │   │   │   network_file_systems=repr(network_file_systems),         │
+│                                                                             │
+│ C:\Users\psi20\AppData\Local\Programs\Python\Python310\lib\site-packages\mo │
+│ dal\_utils\function_utils.py:638 in parse_gpu_config                        │
+│                                                                             │
+│   637 │   │   │   except ValueError:                                        │
+│ > 638 │   │   │   │   raise InvalidError(f"Invalid GPU count: {count_str}.  │
+│   639 │   │   gpu_type = value.upper()                                      │
+└─────────────────────────────────────────────────────────────────────────────┘
+InvalidError: Invalid GPU count: 80GB. Value must be an integer.

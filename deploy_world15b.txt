@@ -1,0 +1,15 @@
+┌───────────────────── Traceback (most recent call last) ─────────────────────┐
+│ C:\Users\psi20\OneDrive\Documents\MODAL\world15_modal.py:140 in <module>    │
+│                                                                             │
+│   139 │   # Practical single-GPU: use distilled model + bf16 on A100 80GB   │
+│ > 140 │   gpu=modal.gpu.A100(size="80GB"),                                  │
+│   141 │   timeout=1200,                                                     │
+│                                                                             │
+│ C:\Users\psi20\AppData\Local\Programs\Python\Python310\lib\site-packages\mo │
+│ dal\__init__.py:114 in __getattr__                                          │
+│                                                                             │
+│   113 │   │   )                                                             │
+│ > 114 │   raise AttributeError(f"module 'modal' has no attribute '{name}'") │
+│   115                                                                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+AttributeError: module 'modal' has no attribute 'gpu'

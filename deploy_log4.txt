@@ -1,0 +1,9 @@
+✓ Created objects.
+├── 🔨 Created mount C:\Users\psi20\OneDrive\Documents\MODAL\hyworld2_modal.py
+├── 🔨 Created function WorldMirror.*.
+└── 🔨 Created web function ui => 
+    https://multinodaltrx--hyworld2-worldmirror-ui.modal.run
+✓ App deployed in 5.143s! 🎉
+
+View Deployment: 
+https://modal.com/apps/multinodaltrx/main/deployed/hyworld2-worldmirror

@@ -1,0 +1,14 @@
+Building image im-QSCpB01T2BpLKuupQlqfZl
+
+=> Step 0: FROM base
+
+=> Step 1: RUN pip install -r /app/HunyuanWorld-1.0/requirements.txt --extra-index-url https://download.pytorch.org/whl/cu124
+ERROR: Could not open requirements file: [Errno 2] No such file or directory: '/app/HunyuanWorld-1.0/requirements.txt'
+
+[notice] A new release of pip is available: 23.2.1 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+Terminating task due to error: failed to run builder command "pip install -r /app/HunyuanWorld-1.0/requirements.txt --extra-index-url https://download.pytorch.org/whl/cu124": container exit status: 1
+┌─ Error ─────────────────────────────────────────────────────────────────────┐
+│ Image build for im-QSCpB01T2BpLKuupQlqfZl failed. See build logs for more   │
+│ details.                                                                    │
+└─────────────────────────────────────────────────────────────────────────────┘
