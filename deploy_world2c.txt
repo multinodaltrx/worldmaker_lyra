@@ -1,8 +1,0 @@
-✓ Created objects.
-├── 🔨 Created mount C:\Users\psi20\OneDrive\Documents\MODAL\world2_modal.py
-└── 🔨 Created web function ui => 
-    https://multinodaltrx--hunyuan-world2-ui.modal.run
-✓ App deployed in 4.631s! 🎉
-
-View Deployment: 
-https://modal.com/apps/multinodaltrx/main/deployed/hunyuan-world2

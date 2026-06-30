@@ -1,21 +1,20 @@
 """
-HunyuanWorld 1.0 on Modal
-Source: https://github.com/Tencent-Hunyuan/HunyuanWorld-1.0
+HunyuanWorld 1.0 — Modal Deployment (Stable Build)
+====================================================
+Repo:   https://github.com/Tencent-Hunyuan/HunyuanWorld-1.0
+Models: https://huggingface.co/tencent/HunyuanWorld-1 (all public, no token needed)
 
-INPUT:  Single image OR text prompt
-OUTPUT: Full 3D world mesh (glb/obj) + panorama + modelviewer.html for browser play
-
-Two-stage pipeline per README:
-  Stage 1 — demo_panogen.py  → generates 360° panorama from image or text
-  Stage 2 — demo_scenegen.py → panorama → layered 3D world mesh
+Strategy:
+  - Use pytorch/pytorch:2.5.0-cuda12.4-cudnn9-devel as base
+    (pre-built PyTorch + CUDA — eliminates the biggest install step)
+  - Install sentencepiece + protobuf FIRST (before transformers)
+  - Patch basicsr degradations.py immediately after install
+  - Install Real-ESRGAN deps in correct order
+  - Bake ZIM onnx weights into image (no runtime download)
+  - Compile draco once, cached in image layer
 
 Deploy:
-    pip install modal && modal setup
-    modal serve world10_modal.py
-    modal deploy world10_modal.py
-
-Requires HuggingFace login (models at tencent/HunyuanWorld-1):
-    modal secret create huggingface HF_TOKEN=<your_token>
+  modal deploy world10_modal.py
 
 All parameters from https://github.com/Tencent-Hunyuan/HunyuanWorld-1.0/blob/main/README.md
 """
@@ -24,122 +23,115 @@ import modal
 
 app = modal.App("hunyuan-world10")
 
-hf_vol     = modal.Volume.from_name("world10-hf-cache",  create_if_missing=True)
-output_vol = modal.Volume.from_name("world10-outputs",    create_if_missing=True)
-model_vol  = modal.Volume.from_name("world10-models",     create_if_missing=True)
+hf_vol     = modal.Volume.from_name("world10-hf-cache", create_if_missing=True)
+output_vol = modal.Volume.from_name("world10-outputs",  create_if_missing=True)
 
 HF_CACHE   = "/hf_cache"
 OUT_DIR    = "/outputs"
 REPO_DIR   = "/app/HunyuanWorld-1.0"
-MODEL_DIR  = "/models"
+ZIM_DIR    = "/app/ZIM"
+ESRGAN_DIR = "/app/Real-ESRGAN"
 
-# ── Image ─────────────────────────────────────────────────────────────────────
-# From docker/HunyuanWorld.yaml: Python 3.10, PyTorch 2.5.0+cu124
-# NOTE: the repo has NO requirements.txt — deps are in docker/HunyuanWorld.yaml (conda).
-# We install the pip section of that yaml manually.
+# ── Patch script — fixes basicsr broken import, baked into image ──────────────
+# Uses site.getsitepackages() so it works on any Python version (3.10 or 3.11)
+BASICSR_PATCH = (
+    "import site, os; "
+    "sp = site.getsitepackages()[0]; "
+    "f = os.path.join(sp, 'basicsr/data/degradations.py'); "
+    "txt = open(f).read(); "
+    "fixed = txt.replace("
+    "    'from torchvision.transforms.functional_tensor import rgb_to_grayscale',"
+    "    'from torchvision.transforms.functional import rgb_to_grayscale'"
+    "); "
+    "open(f, 'w').write(fixed); "
+    "print('basicsr patch OK')"
+)
+
+# ── Container Image ───────────────────────────────────────────────────────────
+# Base: pytorch/pytorch:2.5.0-cuda12.4-cudnn9-devel
+#   → PyTorch 2.5.0 + CUDA 12.4 pre-installed — no need to build from bare CUDA
 # ─────────────────────────────────────────────────────────────────────────────
 image = (
     modal.Image.from_registry(
-        "nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04",
-        add_python="3.10",
+        "pytorch/pytorch:2.5.0-cuda12.4-cudnn9-devel",
     )
     .apt_install(
-        "git", "libgl1", "libglib2.0-0", "libgomp1",
-        "cmake", "build-essential",   # for draco
-        "wget", "unzip", "ffmpeg",
+        "git", "wget",
+        "libgl1", "libglib2.0-0", "libgomp1",
+        "cmake", "build-essential", "ninja-build",
+        "ffmpeg",
     )
+
+    # ── Step 1: sentencepiece + protobuf BEFORE everything else ──────────────
+    # Must precede transformers — T5 fast tokenizer checks for sentencepiece
+    # at import time. If missing: "Cannot instantiate this tokenizer from a slow version"
+    .pip_install("sentencepiece", "protobuf")
+
+    # ── Step 2: Core ML stack ─────────────────────────────────────────────────
     .pip_install(
-        "torch==2.5.0",
-        "torchvision==0.20.0",
-        index_url="https://download.pytorch.org/whl/cu124",
+        "diffusers==0.31.0",
+        "transformers==4.46.3",
+        "accelerate",
+        "tokenizers",
+        "huggingface_hub",
+        "safetensors",
     )
-    # Core packages from docker/HunyuanWorld.yaml pip section
-    .pip_install(
-        "transformers==4.51.0",
-        "diffusers==0.34.0",
-        "accelerate==1.6.0",
-        "huggingface-hub==0.30.2",
-        "safetensors==0.5.3",
-        "peft==0.15.0",
-        "einops==0.4.1",
-        "omegaconf==2.1.2",
-        "kornia==0.8.0",
-        "timm==1.0.13",
-        "pytorch-lightning==2.4.0",
-        "torchmetrics==1.7.1",
-        "opencv-python-headless",
-        "pillow",
-        "numpy==1.24.1",
-        "scipy",
-        "scikit-image",
-        "imageio",
-        "imageio-ffmpeg",
-        "matplotlib",
-        "plyfile==1.1",
-        "open3d>=0.18.0",
-        "trimesh>=4.6.1",
-        "py360convert",
-        "onnxruntime-gpu",
-        "easydict",
-        "addict",
-        "loguru",
-        "ftfy",
-        "pandas",
-        "h5py",
-        "tqdm",
-        "packaging",
-    )
-    # MoGe depth model — also installs utils3d as a dependency
+
+    # ── Step 3: basicsr + Real-ESRGAN ─────────────────────────────────────────
+    # gfpgan pulls in unpatched basicsr — patch immediately after, and again
+    # after Real-ESRGAN setup.py develop which may reinstall basicsr
+    .pip_install("basicsr-fixed", "facexlib", "gfpgan")
+    .run_commands(f'python3 -c "{BASICSR_PATCH}"')
     .run_commands(
-        "pip install git+https://github.com/microsoft/MoGe.git",
+        f"git clone https://github.com/xinntao/Real-ESRGAN.git {ESRGAN_DIR}",
+        f"cd {ESRGAN_DIR} && pip install -r requirements.txt --no-deps",
+        f"cd {ESRGAN_DIR} && python setup.py develop",
+        f'python3 -c "{BASICSR_PATCH}"',
     )
-    # Clone the repo (no requirements.txt in repo — all deps installed above)
+
+    # ── Step 4: ZIM segmentation — bake ONNX weights into image ──────────────
     .run_commands(
-        f"git clone https://github.com/Tencent-Hunyuan/HunyuanWorld-1.0 {REPO_DIR}",
+        f"git clone https://github.com/naver-ai/ZIM.git {ZIM_DIR}",
+        f"cd {ZIM_DIR} && pip install -e . --no-deps",
+        f"mkdir -p {ZIM_DIR}/zim_vit_l_2092",
+        f"wget -q https://huggingface.co/naver-iv/zim-anything-vitl/resolve/main/zim_vit_l_2092/encoder.onnx -O {ZIM_DIR}/zim_vit_l_2092/encoder.onnx",
+        f"wget -q https://huggingface.co/naver-iv/zim-anything-vitl/resolve/main/zim_vit_l_2092/decoder.onnx -O {ZIM_DIR}/zim_vit_l_2092/decoder.onnx",
     )
-    # Real-ESRGAN (required by README)
+
+    # ── Step 5: draco mesh compiler (Ninja is faster than plain make) ─────────
     .run_commands(
-        "git clone https://github.com/xinntao/Real-ESRGAN.git /app/Real-ESRGAN",
-        "cd /app/Real-ESRGAN && pip install basicsr-fixed facexlib gfpgan",
-        "cd /app/Real-ESRGAN && pip install -r requirements.txt",
-        "cd /app/Real-ESRGAN && python setup.py develop",
-    )
-    # Patch basicsr — functional_tensor was removed in torchvision>=0.17, path is fixed in cuda+py3.10 image
-    .run_commands(
-        "sed -i 's/from torchvision.transforms.functional_tensor import rgb_to_grayscale/"
-        "from torchvision.transforms.functional import rgb_to_grayscale/g' "
-        "/usr/local/lib/python3.10/site-packages/basicsr/data/degradations.py",
-    )
-    # ZIM segmentation (required by README)
-    .run_commands(
-        "git clone https://github.com/naver-ai/ZIM.git /app/ZIM",
-        "cd /app/ZIM && pip install -e .",
-        "mkdir -p /app/ZIM/zim_vit_l_2092",
-        "wget -q https://huggingface.co/naver-iv/zim-anything-vitl/resolve/main/zim_vit_l_2092/encoder.onnx -O /app/ZIM/zim_vit_l_2092/encoder.onnx",
-        "wget -q https://huggingface.co/naver-iv/zim-anything-vitl/resolve/main/zim_vit_l_2092/decoder.onnx -O /app/ZIM/zim_vit_l_2092/decoder.onnx",
-    )
-    # Draco (3D mesh compression)
-    .run_commands(
-        "git clone https://github.com/google/draco.git /tmp/draco",
-        "cd /tmp/draco && mkdir build && cd build && cmake .. && make -j4 && make install",
+        "git clone --depth 1 https://github.com/google/draco.git /tmp/draco",
+        "cd /tmp/draco && cmake -B build -GNinja -DCMAKE_BUILD_TYPE=Release .",
+        "cd /tmp/draco && ninja -C build && ninja -C build install",
         "rm -rf /tmp/draco",
     )
-    # wheel needed for flash-attn --no-build-isolation
-    .pip_install("wheel", "setuptools")
-    .pip_install("flash-attn==2.7.4.post1", extra_options="--no-build-isolation")
-    # Force-reinstall packages Real-ESRGAN/ZIM may have clobbered
+
+    # ── Step 6: Remaining Python deps ─────────────────────────────────────────
     .pip_install(
-        "transformers==4.51.0",
-        "diffusers==0.34.0",
-        "accelerate==1.6.0",
+        "einops",
+        "omegaconf",
+        "scipy",
+        "trimesh",
+        "Pillow",
+        "opencv-python",
+        "numpy<2.0.0",
+        "tqdm",
+        "open3d==0.18.0",
+        "onnxruntime-gpu",
+        # gradio==5.49.1 — 5.9.1 has a known 500 Server Error schema bug
         "gradio==5.49.1",
         "fastapi[standard]",
     )
+
+    # ── Step 7: Clone HunyuanWorld-1.0 repo ──────────────────────────────────
+    .run_commands(
+        f"git clone https://github.com/Tencent-Hunyuan/HunyuanWorld-1.0.git {REPO_DIR}",
+    )
+
     .env({
         "PYTHONPATH": REPO_DIR,
         "HF_HOME":    HF_CACHE,
-        "ESRGAN_PATH": "/app/Real-ESRGAN",
-        "ZIM_PATH":    "/app/ZIM",
+        "ZIM_MODEL_PATH": f"{ZIM_DIR}/zim_vit_l_2092",
     })
 )
 
@@ -147,16 +139,12 @@ image = (
 # ── Gradio App ────────────────────────────────────────────────────────────────
 @app.function(
     image=image,
-    # HunyuanWorld-1.0 uses Flux-based model — A100 40GB is sufficient
-    # --fp8_gemm --fp8_attention flags available per README for memory saving
     gpu="A100",
-    timeout=1800,   # panorama + scene gen can take 20-30 min on first run
+    timeout=2400,
     volumes={
         HF_CACHE:  hf_vol,
         OUT_DIR:   output_vol,
-        MODEL_DIR: model_vol,
     },
-    secrets=[modal.Secret.from_name("huggingface")],
     min_containers=1,
     scaledown_window=300,
     max_containers=1,
@@ -171,108 +159,81 @@ def ui():
     from fastapi import FastAPI
     from gradio.routes import mount_gradio_app
 
-    hf_token = os.environ.get("HF_TOKEN", "")
-
-    # Login to HuggingFace so the scripts can download model weights
-    if hf_token:
-        subprocess.run(
-            ["huggingface-cli", "login", "--token", hf_token],
-            capture_output=True,
-        )
-
-    def run_world(
-        mode,           # "Image to World" or "Text to World"
-        image_file,
-        prompt,
-        labels_fg1,     # space-separated foreground object labels (layer 1)
-        labels_fg2,     # space-separated foreground object labels (layer 2)
-        scene_class,    # "outdoor" or "indoor"
-        use_fp8,        # use --fp8_gemm --fp8_attention for memory saving
-    ):
-        """
-        Runs the two-stage pipeline per README:
-          Stage 1: demo_panogen.py  → panorama
-          Stage 2: demo_scenegen.py → 3D world
-
-        Per README exact CLI:
-          python3 demo_panogen.py --prompt "" --image_path <img> --output_path <out>
-          python3 demo_scenegen.py --image_path <panorama.png> --labels_fg1 stones
-                                   --labels_fg2 trees --classes outdoor --output_path <out>
-
-        fp8 flags from README quantization section:
-          --fp8_gemm --fp8_attention
-        """
+    def run_world(mode, image_file, prompt, labels_fg1, labels_fg2,
+                  scene_class, use_fp8, use_cache):
         out_path = tempfile.mkdtemp(dir=OUT_DIR, prefix="hw10_")
 
-        # ── Stage 1: Panorama generation ─────────────────────────────────────
-        pano_cmd = [
-            "python3", f"{REPO_DIR}/demo_panogen.py",
-            "--output_path", out_path,
-        ]
+        # Stage 1 — Panorama
+        pano_cmd = ["python3", f"{REPO_DIR}/demo_panogen.py",
+                    "--output_path", out_path]
+
         if mode == "Image to World":
             if image_file is None:
-                return None, "❌ Please upload an image."
-            img_path = getattr(image_file, 'path', None) or getattr(image_file, 'name', None) or str(image_file)
-            pano_cmd += ["--prompt", "", "--image_path", img_path]
+                return None, "❌ Upload an image."
+            # Gradio 5.x File returns FileData with .path, not .name
+            img_src = getattr(image_file, 'path', None) or getattr(image_file, 'name', None) or str(image_file)
+            img_dst = os.path.join(out_path, "input.png")
+            shutil.copy(img_src, img_dst)
+            pano_cmd += ["--prompt", "", "--image_path", img_dst]
         else:
             if not prompt.strip():
-                return None, "❌ Please enter a text prompt."
+                return None, "❌ Enter a text prompt."
             pano_cmd += ["--prompt", prompt.strip()]
 
         if use_fp8:
             pano_cmd += ["--fp8_gemm", "--fp8_attention"]
+        if use_cache:
+            pano_cmd += ["--cache"]
 
-        print(f"Stage 1 command: {' '.join(pano_cmd)}")
         r1 = subprocess.run(pano_cmd, capture_output=True, text=True, cwd=REPO_DIR)
         if r1.returncode != 0:
-            return None, f"❌ Panorama generation failed:\n{r1.stderr[-3000:]}"
+            return None, f"❌ Panorama failed (stage 1):\n{r1.stderr[-3000:]}"
 
         pano_path = os.path.join(out_path, "panorama.png")
         if not os.path.exists(pano_path):
-            return None, f"❌ panorama.png not found after stage 1. Stderr:\n{r1.stderr[-2000:]}"
+            return None, (
+                f"❌ panorama.png missing.\n"
+                f"stdout: {r1.stdout[-1000:]}\nstderr: {r1.stderr[-1000:]}"
+            )
 
-        # ── Stage 2: Scene generation ─────────────────────────────────────────
-        scene_cmd = [
-            "python3", f"{REPO_DIR}/demo_scenegen.py",
-            "--image_path", pano_path,
-            "--classes", scene_class,
-            "--output_path", out_path,
-        ]
-        # Per README: indicate foreground objects to layer out
+        # Stage 2 — Scene generation
+        scene_cmd = ["python3", f"{REPO_DIR}/demo_scenegen.py",
+                     "--image_path", pano_path,
+                     "--classes", scene_class,
+                     "--output_path", out_path]
+
         if labels_fg1.strip():
             scene_cmd += ["--labels_fg1"] + labels_fg1.strip().split()
         if labels_fg2.strip():
             scene_cmd += ["--labels_fg2"] + labels_fg2.strip().split()
-
         if use_fp8:
             scene_cmd += ["--fp8_gemm", "--fp8_attention"]
+        if use_cache:
+            scene_cmd += ["--cache"]
 
-        print(f"Stage 2 command: {' '.join(scene_cmd)}")
         r2 = subprocess.run(scene_cmd, capture_output=True, text=True, cwd=REPO_DIR)
         if r2.returncode != 0:
-            return None, f"❌ Scene generation failed:\n{r2.stderr[-3000:]}"
+            return None, f"❌ Scene generation failed (stage 2):\n{r2.stderr[-3000:]}"
 
-        # Copy modelviewer.html into output so user can open locally
-        mv_src = f"{REPO_DIR}/modelviewer.html"
-        if os.path.exists(mv_src):
-            shutil.copy(mv_src, os.path.join(out_path, "modelviewer.html"))
+        # Pack outputs
+        mv_html = f"{REPO_DIR}/modelviewer.html"
+        if os.path.exists(mv_html):
+            shutil.copy(mv_html, os.path.join(out_path, "modelviewer.html"))
 
-        # Write a README explaining how to use the viewer
         with open(os.path.join(out_path, "HOW_TO_VIEW.txt"), "w") as f:
             f.write(
                 "HOW TO VIEW YOUR 3D WORLD\n"
-                "=========================\n\n"
+                "=========================\n"
                 "1. Extract this ZIP\n"
-                "2. Open modelviewer.html in your browser (Chrome recommended)\n"
-                "3. Upload the generated 3D scene files when prompted\n"
-                "4. Navigate your world in real time!\n\n"
+                "2. Open modelviewer.html in Chrome\n"
+                "3. Upload the scene files when prompted\n"
+                "4. Walk around your world!\n\n"
                 "Files:\n"
-                "  panorama.png      - 360 degree panorama\n"
-                "  modelviewer.html  - Browser viewer (open this)\n"
-                "  *.glb / *.obj     - 3D mesh files\n"
+                "  panorama.png     - 360 panorama\n"
+                "  modelviewer.html - browser viewer\n"
+                "  *.glb / *.obj    - 3D mesh (import into Blender/Unity/UE)\n"
             )
 
-        # Zip everything
         zip_path = tempfile.mktemp(suffix=".zip")
         with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
             for root, _, files in os.walk(out_path):
@@ -281,90 +242,82 @@ def ui():
                     zf.write(fp, os.path.relpath(fp, out_path))
 
         output_vol.commit()
-        return zip_path, (
-            "✅ Done!\n"
-            "Extract the ZIP, open modelviewer.html in Chrome to walk through your world.\n"
-            f"Output: {out_path}"
-        )
+        return zip_path, "✅ Done! Extract ZIP → open modelviewer.html in Chrome."
 
     # ── UI ────────────────────────────────────────────────────────────────────
     with gr.Blocks(title="HunyuanWorld 1.0") as demo:
         gr.Markdown(
             "# 🌐 HunyuanWorld 1.0\n"
-            "**Single image OR text → 360° panorama → explorable 3D world mesh**\n\n"
-            "Outputs a ZIP with 3D mesh files + `modelviewer.html` — open it in Chrome to walk around your world."
+            "**Single image OR text → 360° panorama → explorable 3D world**\n\n"
+            "Outputs a ZIP with 3D mesh files + `modelviewer.html`.\n"
+            "Open `modelviewer.html` in **Chrome** to walk around your world."
         )
         with gr.Row():
-            with gr.Column():
+            with gr.Column(scale=1):
                 mode = gr.Radio(
-                    ["Image to World", "Text to World"],
+                    choices=["Image to World", "Text to World"],
                     value="Image to World",
-                    label="Generation Mode",
+                    label="Mode",
                 )
                 img_in = gr.File(
-                    label="Input Image (Image to World mode)",
+                    label="Input Image",
                     file_types=["image"],
                     visible=True,
                 )
                 prompt_in = gr.Textbox(
-                    label="Text Prompt (Text to World mode)",
-                    placeholder="A forest with ancient ruins, misty morning light...",
+                    label="Text Prompt",
+                    placeholder="A forest with ancient ruins at sunset...",
                     lines=3,
                     visible=False,
                 )
-
-                # Show/hide based on mode
-                def toggle_mode(m):
+                def toggle(m):
                     return (
                         gr.update(visible=(m == "Image to World")),
                         gr.update(visible=(m == "Text to World")),
                     )
-                mode.change(toggle_mode, inputs=mode, outputs=[img_in, prompt_in])
+                mode.change(toggle, inputs=mode, outputs=[img_in, prompt_in])
 
                 gr.Markdown(
-                    "### Foreground Object Labels\n"
-                    "Tell the model which objects to layer separately (improves scene quality).\n"
-                    "Examples: `stones` `trees` `buildings` `sculptures` `flowers` `mountains`"
+                    "### Foreground Labels\n"
+                    "Objects to layer separately. Examples: `stones trees buildings flowers`"
                 )
                 with gr.Row():
-                    labels_fg1 = gr.Textbox(label="Foreground Layer 1", value="stones",
-                                             placeholder="e.g. stones sculptures")
-                    labels_fg2 = gr.Textbox(label="Foreground Layer 2", value="trees",
-                                             placeholder="e.g. trees mountains")
+                    fg1 = gr.Textbox(label="Layer 1", value="stones")
+                    fg2 = gr.Textbox(label="Layer 2", value="trees")
 
                 scene_class = gr.Dropdown(
-                    ["outdoor", "indoor"],
+                    choices=["outdoor", "indoor"],
                     value="outdoor",
                     label="Scene Class",
                 )
-                use_fp8 = gr.Checkbox(
-                    value=False,
-                    label="FP8 quantization (--fp8_gemm --fp8_attention) — use if OOM",
-                )
+                with gr.Row():
+                    use_fp8   = gr.Checkbox(value=False, label="FP8 — save VRAM")
+                    use_cache = gr.Checkbox(value=False, label="Cache — faster")
+
                 run_btn = gr.Button("🌍 Generate World", variant="primary", size="lg")
 
-            with gr.Column():
-                status  = gr.Textbox(label="Status", interactive=False, lines=5)
-                dl      = gr.File(label="⬇ Download World (ZIP)")
+            with gr.Column(scale=1):
+                status = gr.Textbox(label="Status", interactive=False, lines=6)
+                dl     = gr.File(label="⬇ Download World ZIP")
                 gr.Markdown(
-                    "### After downloading:\n"
-                    "1. Extract the ZIP\n"
+                    "**After download:**\n"
+                    "1. Extract ZIP\n"
                     "2. Open **modelviewer.html** in Chrome\n"
-                    "3. Walk around your 3D world!"
+                    "3. Walk around your world 🎮"
                 )
 
         run_btn.click(
             run_world,
-            inputs=[mode, img_in, prompt_in, labels_fg1, labels_fg2,
-                    scene_class, use_fp8],
+            inputs=[mode, img_in, prompt_in, fg1, fg2, scene_class, use_fp8, use_cache],
             outputs=[dl, status],
         )
         gr.Markdown(
             "---\n"
-            "**Models:** `tencent/HunyuanWorld-1` (Flux-based) · "
+            "**Models:** `tencent/HunyuanWorld-1` · "
             "**GPU:** A100 40GB · "
-            "**Repo:** https://github.com/Tencent-Hunyuan/HunyuanWorld-1.0\n\n"
-            "⚠️ First run takes 15–30 min (model download + generation). Subsequent runs ~5–10 min."
+            "**Source:** https://github.com/Tencent-Hunyuan/HunyuanWorld-1.0\n\n"
+            "⚠️ First generation: ~20 min (model download + panorama + scene). "
+            "Subsequent runs: ~15 min (weights cached)."
         )
 
     demo.queue(max_size=3)

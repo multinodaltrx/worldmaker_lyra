@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+
+# Build / deploy logs
+deploy_*.txt
+*.log
+
+# Claude Code settings (local paths, not for sharing)
+.claude/
+
+# Local repo clones (large, not needed)
+HunyuanWorld-1.0/
+
+# Environment / secrets
+.env
+.env.*
+*.token
+secrets.json
+
+# OS
+.DS_Store
+Thumbs.db

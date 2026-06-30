@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "WebFetch(domain:github.com)",
-      "PowerShell($env:PYTHONUTF8=\"1\"; C:\\\\Users\\\\psi20\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python310\\\\python.exe -c \"import modal; help\\(modal.gpu\\)\" 2>&1 | Select-Object -First 40)",
-      "PowerShell($env:PYTHONIOENCODING=\"utf-8\"; $env:PYTHONUTF8=\"1\"; [Console]::OutputEncoding=[System.Text.Encoding]::UTF8; cd \"C:\\\\Users\\\\psi20\\\\OneDrive\\\\Documents\\\\MODAL\" && C:\\\\Users\\\\psi20\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python310\\\\Scripts\\\\modal.exe deploy world2_modal.py 2>&1 | Tee-Object -FilePath \"deploy_world2c.txt\" -Encoding utf8; Write-Host \"EXIT:$LASTEXITCODE\")"
-    ]
-  }
-}
