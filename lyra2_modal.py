@@ -225,13 +225,18 @@ def ui():
     elif not os.path.exists("/app/lyra/Lyra-2/checkpoints"):
         os.symlink(CKPT_DIR + "/checkpoints", "/app/lyra/Lyra-2/checkpoints")
 
-    def run_zoomgs(image_file, caption, sample_id):
+    def run_zoomgs(image_file, caption):
         """
         Simplest entry point: zoom-in/zoom-out exploration from a single image.
         Command from the repo's own usage docs:
 
           PYTHONPATH=. python -m lyra_2._src.inference.lyra2_zoomgs_inference \\
-              --input_image_path <img> --sample_id <0-14> --checkpoint_dir checkpoints
+              --input_image_path <img> --checkpoint_dir checkpoints
+
+        Note: --sample_id is an index into a BATCH of images, not a trajectory preset.
+        We always pass a single image, so --sample_id is omitted entirely.
+        The script's default behaviour (sample_start_idx=0, num_samples=1) processes
+        the one uploaded image correctly without it.
         """
         if image_file is None:
             return None, None, "❌ Upload a starting image (480x832 recommended)."
@@ -253,7 +258,6 @@ def ui():
             f"PYTHONPATH=. python -m lyra_2._src.inference.lyra2_zoomgs_inference "
             f"--experiment lyra2 "
             f"--input_image_path {img_dst} "
-            f"--sample_id {int(sample_id)} "
             f"--checkpoint_dir checkpoints/model "
             f"--output_path {run_dir} "
             f"--prompt_dir {run_dir}"
@@ -320,8 +324,6 @@ def ui():
                     placeholder="A cozy living room with a fireplace and large windows",
                     lines=2,
                 )
-                sample_id = gr.Slider(0, 14, step=1, value=0,
-                                       label="Sample ID (camera motion preset, 0-14)")
                 run_btn = gr.Button("🚀 Generate Explorable World", variant="primary", size="lg")
             with gr.Column():
                 status = gr.Textbox(label="Status", interactive=False, lines=5)
@@ -330,7 +332,7 @@ def ui():
 
         run_btn.click(
             run_zoomgs,
-            inputs=[img_in, caption, sample_id],
+            inputs=[img_in, caption],
             outputs=[video_out, gs_out, status],
         )
         gr.Markdown(
