@@ -154,9 +154,22 @@ image = (
         "'",
     )
     # Gradio + web server deps for our wrapper UI (not part of upstream repo)
-    # gdown>=4.4.0 is required for the fuzzy=True argument used by DroidNet weights download
+    # gdown must stay in the 4.x line: 4.4.0 added fuzzy=True (needed by DroidNet's
+    # load_weights), and gdown 5.x/6.x removed that parameter entirely.
     .run_commands(
-        "/opt/conda/envs/lyra2/bin/pip install 'gradio>=5.23.0' 'fastapi[standard]' 'huggingface_hub>=0.34.0,<1.0' 'gdown>=4.4.0'",
+        "/opt/conda/envs/lyra2/bin/pip install 'gradio>=5.23.0' 'fastapi[standard]' 'huggingface_hub>=0.34.0,<1.0' 'gdown>=4.4.0,<5.0'",
+    )
+    # Pre-bake DroidNet SLAM weights into the image so GS recon never hits
+    # Google Drive at container start (also avoids the gdown fuzzy=True path entirely).
+    .run_commands(
+        "mkdir -p /root/.cache/torch/hub/droid_slam && "
+        "/opt/conda/envs/lyra2/bin/python -c \""
+        "import gdown; "
+        "gdown.download("
+        "'https://drive.google.com/file/d/1PpqVt1H4maBa_GbPJp4NwxRsd9jk-elh/view', "
+        "output='/root/.cache/torch/hub/droid_slam/droid.pth', "
+        "fuzzy=True)"
+        "\""
     )
     .env({
         "HF_HOME": HF_CACHE,
