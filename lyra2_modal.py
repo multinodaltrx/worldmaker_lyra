@@ -154,12 +154,17 @@ image = (
         "'",
     )
     # Gradio + web server deps for our wrapper UI (not part of upstream repo)
+    # gdown>=4.4.0 is required for the fuzzy=True argument used by DroidNet weights download
     .run_commands(
-        "/opt/conda/envs/lyra2/bin/pip install gradio==5.9.1 'fastapi[standard]' huggingface_hub",
+        "/opt/conda/envs/lyra2/bin/pip install 'gradio>=5.23.0' 'fastapi[standard]' 'huggingface_hub>=0.34.0,<1.0' 'gdown>=4.4.0'",
     )
     .env({
         "HF_HOME": HF_CACHE,
         "PYTHONPATH": REPO_DIR,
+        # Make the lyra2 conda env the default Python at runtime.
+        # Without this, Modal's container runner resolves `python` to the base
+        # conda Python (/opt/conda/bin), which has no gradio/torch/etc.
+        "PATH": "/opt/conda/envs/lyra2/bin:/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
     })
 )
 
@@ -243,23 +248,27 @@ def ui():
         cmd_str = (
             _conda_env_prefix() +
             f"cd {REPO_DIR} && "
+            f"export NVTE_FUSED_ATTN=0 && "
             f"export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True && "
             f"PYTHONPATH=. python -m lyra_2._src.inference.lyra2_zoomgs_inference "
+            f"--experiment lyra2 "
             f"--input_image_path {img_dst} "
             f"--sample_id {int(sample_id)} "
-            f"--checkpoint_dir checkpoints "
-            f"--output_dir {run_dir}"
+            f"--checkpoint_dir checkpoints/model "
+            f"--output_path {run_dir} "
+            f"--prompt_dir {run_dir}"
         )
         result = subprocess.run(["bash", "-c", cmd_str], capture_output=True, text=True)
         if result.returncode != 0:
             return None, None, f"❌ Generation failed:\n{result.stderr[-3000:]}"
 
-        # Find the generated video
+        # Script outputs adjacent to the input image; search run_dir and REPO_DIR
         video_path = None
-        for root, _, files in os.walk(run_dir):
-            for fname in files:
-                if fname.endswith(".mp4"):
-                    video_path = os.path.join(root, fname)
+        for search_root in [run_dir, REPO_DIR]:
+            for root, _, files in os.walk(search_root):
+                for fname in files:
+                    if fname.endswith(".mp4"):
+                        video_path = os.path.join(root, fname)
 
         if video_path is None:
             return None, None, f"❌ No video produced.\nstdout: {result.stdout[-1500:]}"
