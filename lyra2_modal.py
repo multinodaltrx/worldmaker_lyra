@@ -291,11 +291,16 @@ def ui():
             return None, None, f"❌ No video produced.\nstdout: {result.stdout[-1500:]}"
 
         # Step 2: lift the video to 3D Gaussian Splats via VIPE + DA3 depth
+        # expandable_segments: helps the allocator reuse SLAM's freed memory for DA3
+        # da3_max_frames 64: SLAM holds ~78 GB after running; halving the DA3 batch
+        #   reduces the per-call allocation so it fits in remaining VRAM
         gs_cmd_str = (
             _conda_env_prefix() +
             f"cd {REPO_DIR} && "
+            f"export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True && "
             f"PYTHONPATH=. python -m lyra_2._src.inference.vipe_da3_gs_recon "
-            f"--input_video_path {video_path}"
+            f"--input_video_path {video_path} "
+            f"--da3_max_frames 64"
         )
         gs_result = subprocess.run(["bash", "-c", gs_cmd_str], capture_output=True, text=True)
 
