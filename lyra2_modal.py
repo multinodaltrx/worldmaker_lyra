@@ -207,7 +207,7 @@ def _conda_env_prefix():
         OUT_DIR:  output_vol,
         HF_CACHE: hf_vol,
     },
-    min_containers=1,
+    min_containers=0,   # scale to zero between demo sessions to avoid 24/7 H100 cost
     scaledown_window=300,
     max_containers=1,
 )
@@ -238,59 +238,38 @@ def ui():
     elif not os.path.exists("/app/lyra/Lyra-2/checkpoints"):
         os.symlink(CKPT_DIR + "/checkpoints", "/app/lyra/Lyra-2/checkpoints")
 
-    def run_zoomgs(image_file, caption):
-        """
-        Simplest entry point: zoom-in/zoom-out exploration from a single image.
-        Command from the repo's own usage docs:
+    # ── Repo demo scenes ────────────────────────────────────────────────────
+    # assets/samples/{00..14}.png + paired {00..14}.txt captions ship inside
+    # the cloned repo. These are the exact scenes NVIDIA's own INSTALL.md
+    # commands run (--input_image_path assets/samples --sample_id N), sourced
+    # from the Tanks and Temples benchmark and Marble by World Labs. Using
+    # them guarantees the demo shows the model at its documented best instead
+    # of an arbitrary uploaded photo the model was never shown to handle well.
+    SAMPLES_DIR = os.path.join(REPO_DIR, "assets", "samples")
+    NUM_SAMPLES = 15
+    sample_captions = []
+    sample_gallery = []
+    for i in range(NUM_SAMPLES):
+        sid = f"{i:02d}"
+        img_path = os.path.join(SAMPLES_DIR, f"{sid}.png")
+        txt_path = os.path.join(SAMPLES_DIR, f"{sid}.txt")
+        cap = ""
+        if os.path.exists(txt_path):
+            with open(txt_path) as f:
+                cap = f.read().strip()
+        sample_captions.append(cap)
+        if os.path.exists(img_path):
+            sample_gallery.append((img_path, f"#{i} — {cap[:70]}"))
 
-          PYTHONPATH=. python -m lyra_2._src.inference.lyra2_zoomgs_inference \\
-              --input_image_path <img> --checkpoint_dir checkpoints
+    # Frame counts / zoom strengths copied verbatim from the repo's own
+    # documented command — required for good, prompt-faithful output.
+    # (1 + 80k frame counts to align with autoregressive chunk boundaries.)
+    TRAJECTORY_FLAGS = (
+        "--num_frames_zoom_in 81 --num_frames_zoom_out 241 "
+        "--zoom_in_strength 0.5 --zoom_out_strength 1.5"
+    )
 
-        Note: --sample_id is an index into a BATCH of images, not a trajectory preset.
-        We always pass a single image, so --sample_id is omitted entirely.
-        The script's default behaviour (sample_start_idx=0, num_samples=1) processes
-        the one uploaded image correctly without it.
-        """
-        if image_file is None:
-            return None, None, "❌ Upload a starting image (480x832 recommended)."
-
-        run_dir = tempfile.mkdtemp(dir=OUT_DIR, prefix="lyra2_zoomgs_")
-        img_dst = os.path.join(run_dir, "input.png")
-        shutil.copy(image_file.name, img_dst)
-
-        # Caption file required alongside the image per repo convention
-        caption_dst = os.path.join(run_dir, "input.txt")
-        with open(caption_dst, "w") as f:
-            f.write(caption.strip() if caption.strip() else "a photorealistic scene")
-
-        cmd_str = (
-            _conda_env_prefix() +
-            f"cd {REPO_DIR} && "
-            f"export NVTE_FUSED_ATTN=0 && "
-            f"export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True && "
-            f"PYTHONPATH=. python -m lyra_2._src.inference.lyra2_zoomgs_inference "
-            f"--experiment lyra2 "
-            f"--input_image_path {img_dst} "
-            f"--checkpoint_dir checkpoints/model "
-            f"--output_path {run_dir} "
-            f"--prompt_dir {run_dir}"
-        )
-        result = subprocess.run(["bash", "-c", cmd_str], capture_output=True, text=True)
-        if result.returncode != 0:
-            return None, None, f"❌ Generation failed:\n{result.stderr[-3000:]}"
-
-        # Script outputs adjacent to the input image; search run_dir and REPO_DIR
-        video_path = None
-        for search_root in [run_dir, REPO_DIR]:
-            for root, _, files in os.walk(search_root):
-                for fname in files:
-                    if fname.endswith(".mp4"):
-                        video_path = os.path.join(root, fname)
-
-        if video_path is None:
-            return None, None, f"❌ No video produced.\nstdout: {result.stdout[-1500:]}"
-
-        # Step 2: lift the video to 3D Gaussian Splats via VIPE + DA3 depth
+    def _run_gs_recon(video_path):
         # expandable_segments: helps the allocator reuse SLAM's freed memory for DA3
         # da3_max_frames 64: SLAM holds ~78 GB after running; halving the DA3 batch
         #   reduces the per-call allocation so it fits in remaining VRAM
@@ -303,7 +282,6 @@ def ui():
             f"--da3_max_frames 64"
         )
         gs_result = subprocess.run(["bash", "-c", gs_cmd_str], capture_output=True, text=True)
-
         gs_ply_path = None
         if gs_result.returncode == 0:
             base = os.path.splitext(video_path)[0]
@@ -312,7 +290,51 @@ def ui():
                 for f in os.listdir(gs_dir):
                     if f.endswith(".ply"):
                         gs_ply_path = os.path.join(gs_dir, f)
+        return gs_ply_path, gs_result
 
+    def _find_video(run_dir, preferred_name=None):
+        if preferred_name:
+            preferred = os.path.join(run_dir, "videos", preferred_name)
+            if os.path.exists(preferred):
+                return preferred
+        for search_root in [run_dir, REPO_DIR]:
+            for root, _, files in os.walk(search_root):
+                for fname in files:
+                    if fname.endswith(".mp4"):
+                        return os.path.join(root, fname)
+        return None
+
+    def run_repo_example(sample_id, use_dmd):
+        """Generate from one of the repo's bundled demo scenes (assets/samples)."""
+        if sample_id is None:
+            return None, None, "❌ Click a scene thumbnail above first."
+        sample_id = int(sample_id)
+        run_dir = tempfile.mkdtemp(dir=OUT_DIR, prefix=f"lyra2_repo_{sample_id:02d}_")
+
+        cmd_str = (
+            _conda_env_prefix() +
+            f"cd {REPO_DIR} && "
+            f"export NVTE_FUSED_ATTN=0 && "
+            f"export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True && "
+            f"PYTHONPATH=. python -m lyra_2._src.inference.lyra2_zoomgs_inference "
+            f"--experiment lyra2 "
+            f"--input_image_path {SAMPLES_DIR} "
+            f"--sample_id {sample_id} "
+            f"--prompt_dir {SAMPLES_DIR} "
+            f"--checkpoint_dir checkpoints/model "
+            f"--output_path {run_dir} "
+            f"{TRAJECTORY_FLAGS}"
+            + (" --use_dmd" if use_dmd else "")
+        )
+        result = subprocess.run(["bash", "-c", cmd_str], capture_output=True, text=True)
+        if result.returncode != 0:
+            return None, None, f"❌ Generation failed:\n{result.stderr[-3000:]}"
+
+        video_path = _find_video(run_dir, preferred_name=f"{sample_id}.mp4")
+        if video_path is None:
+            return None, None, f"❌ No video produced.\nstdout: {result.stdout[-1500:]}"
+
+        gs_ply_path, gs_result = _run_gs_recon(video_path)
         output_vol.commit()
 
         status = "✅ Video generated."
@@ -320,7 +342,55 @@ def ui():
             status += " ✅ 3D Gaussian Splat reconstructed — download .ply below."
         else:
             status += f" ⚠️ GS reconstruction failed:\n{gs_result.stderr[-1500:]}"
+        return video_path, gs_ply_path, status
 
+    def run_custom_image(image_file, caption, use_dmd):
+        """Experimental: run on a user-uploaded image. Quality varies — the
+        model's documented, tested inputs are the repo demo scenes above."""
+        if image_file is None:
+            return None, None, "❌ Upload a starting image (480x832 recommended)."
+
+        run_dir = tempfile.mkdtemp(dir=OUT_DIR, prefix="lyra2_custom_")
+        img_dst = os.path.join(run_dir, "input.png")
+        shutil.copy(image_file.name, img_dst)
+
+        caption_dst = os.path.join(run_dir, "input.txt")
+        with open(caption_dst, "w") as f:
+            f.write(caption.strip() if caption.strip() else "a photorealistic scene")
+
+        # --sample_id is omitted: it indexes into a directory of images, and we're
+        # pointing --input_image_path at a single file (default sample_start_idx=0,
+        # num_samples=1 already processes just this one image).
+        cmd_str = (
+            _conda_env_prefix() +
+            f"cd {REPO_DIR} && "
+            f"export NVTE_FUSED_ATTN=0 && "
+            f"export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True && "
+            f"PYTHONPATH=. python -m lyra_2._src.inference.lyra2_zoomgs_inference "
+            f"--experiment lyra2 "
+            f"--input_image_path {img_dst} "
+            f"--checkpoint_dir checkpoints/model "
+            f"--output_path {run_dir} "
+            f"--prompt_dir {run_dir} "
+            f"{TRAJECTORY_FLAGS}"
+            + (" --use_dmd" if use_dmd else "")
+        )
+        result = subprocess.run(["bash", "-c", cmd_str], capture_output=True, text=True)
+        if result.returncode != 0:
+            return None, None, f"❌ Generation failed:\n{result.stderr[-3000:]}"
+
+        video_path = _find_video(run_dir)
+        if video_path is None:
+            return None, None, f"❌ No video produced.\nstdout: {result.stdout[-1500:]}"
+
+        gs_ply_path, gs_result = _run_gs_recon(video_path)
+        output_vol.commit()
+
+        status = "✅ Video generated."
+        if gs_ply_path:
+            status += " ✅ 3D Gaussian Splat reconstructed — download .ply below."
+        else:
+            status += f" ⚠️ GS reconstruction failed:\n{gs_result.stderr[-1500:]}"
         return video_path, gs_ply_path, status
 
     # ── UI ────────────────────────────────────────────────────────────────────
@@ -334,23 +404,72 @@ def ui():
             "[NVIDIA Research Licensing](https://www.nvidia.com/en-us/research/inquiries/)."
         )
         with gr.Row():
-            with gr.Column():
-                img_in = gr.File(label="Starting Image (480x832 recommended)",
-                                  file_types=["image"])
-                caption = gr.Textbox(
-                    label="Caption (describes the starting image)",
-                    placeholder="A cozy living room with a fireplace and large windows",
-                    lines=2,
-                )
-                run_btn = gr.Button("🚀 Generate Explorable World", variant="primary", size="lg")
-            with gr.Column():
+            with gr.Column(scale=2):
+                with gr.Tabs():
+                    with gr.Tab("🖼️ Repo Demo Scenes (recommended)"):
+                        gr.Markdown(
+                            "Pick one of the scenes NVIDIA's own Lyra 2.0 team tested this "
+                            "model on. These are guaranteed to produce the quality shown in "
+                            "the model card — a random photo may not.\n\n"
+                            "*Scenes courtesy of the Tanks and Temples benchmark and "
+                            "Marble by World Labs.*"
+                        )
+                        gallery = gr.Gallery(
+                            value=sample_gallery, label="Click a scene",
+                            columns=5, height=320, object_fit="cover", allow_preview=False,
+                        )
+                        selected_id = gr.State(value=None)
+                        selected_caption = gr.Textbox(
+                            label="Caption for selected scene", interactive=False, lines=2,
+                        )
+                        dmd_repo = gr.Checkbox(
+                            label="Fast preview (--use_dmd, ~35s instead of ~9min — "
+                                  "weaker prompt-following, can repeat patterns)",
+                            value=False,
+                        )
+                        repo_btn = gr.Button(
+                            "🚀 Generate Explorable World", variant="primary", size="lg"
+                        )
+
+                        def _on_select(evt: gr.SelectData):
+                            idx = evt.index
+                            return idx, sample_captions[idx]
+
+                        gallery.select(_on_select, outputs=[selected_id, selected_caption])
+
+                    with gr.Tab("📤 Upload Your Own (experimental)"):
+                        gr.Markdown(
+                            "The model wasn't benchmarked on arbitrary photos — results "
+                            "here are less predictable than the repo demo scenes."
+                        )
+                        img_in = gr.File(label="Starting Image (480x832 recommended)",
+                                          file_types=["image"])
+                        caption = gr.Textbox(
+                            label="Caption (describes the starting image)",
+                            placeholder="A cozy living room with a fireplace and large windows",
+                            lines=2,
+                        )
+                        dmd_custom = gr.Checkbox(
+                            label="Fast preview (--use_dmd, ~35s instead of ~9min — "
+                                  "weaker prompt-following, can repeat patterns)",
+                            value=False,
+                        )
+                        custom_btn = gr.Button(
+                            "🚀 Generate Explorable World", variant="primary", size="lg"
+                        )
+            with gr.Column(scale=1):
                 status = gr.Textbox(label="Status", interactive=False, lines=5)
                 video_out = gr.Video(label="Exploration Video")
                 gs_out = gr.File(label="⬇ 3D Gaussian Splat (.ply) — open in SuperSplat")
 
-        run_btn.click(
-            run_zoomgs,
-            inputs=[img_in, caption],
+        repo_btn.click(
+            run_repo_example,
+            inputs=[selected_id, dmd_repo],
+            outputs=[video_out, gs_out, status],
+        )
+        custom_btn.click(
+            run_custom_image,
+            inputs=[img_in, caption, dmd_custom],
             outputs=[video_out, gs_out, status],
         )
         gr.Markdown(
@@ -359,8 +478,8 @@ def ui():
             "**Repo:** https://github.com/nv-tlabs/lyra/tree/main/Lyra-2\n\n"
             "Open the resulting `.ply` at [SuperSplat](https://playcanvas.com/supersplat/editor) "
             "to navigate your reconstructed 3D world.\n\n"
-            "⚠️ First run downloads model checkpoints (~tens of GB) — expect 15-30 min. "
-            "Subsequent runs are much faster."
+            "⚠️ First generation after a cold start can take a few minutes while the "
+            "container spins up; the app scales to zero when idle to save cost."
         )
 
     demo.queue(max_size=2)
